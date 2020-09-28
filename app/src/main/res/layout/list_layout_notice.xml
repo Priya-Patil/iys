@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:layout_margin="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <!-- Thumbnail Image -->
+            <com.netist.mygirlshostel.components.CircularNetworkImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/male_user"
+                android:padding="2dp"
+                android:layout_marginLeft="5dp"/>
+
+            <!-- Title -->
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/thumbnail"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@+id/thumbnail"
+                android:textColor="@color/colorBlack"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <!-- Details -->
+            <TextView
+                android:id="@+id/tv_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_title"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@+id/thumbnail"
+                android:textSize="14dp" />
+
+            <!-- Date Time -->
+            <TextView
+                android:id="@+id/tv_date_time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_details"
+                android:layout_marginTop="5dip"
+                android:layout_toRightOf="@+id/thumbnail"
+                android:textSize="14dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

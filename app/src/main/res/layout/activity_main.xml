@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.netist.mygirlshostel.MainActivity"
+    android:background="@color/colorWhite">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/layout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/textView"
+                android:layout_width="130dp"
+                android:layout_height="130dp"
+                android:src="@drawable/iysl"
+                android:layout_marginTop="5dp"
+                android:visibility="gone"/>
+            <LinearLayout
+                android:id="@+id/sliderlayout"
+                android:background="@color/colorGrey"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@id/toolbar"
+                >
+
+                <com.daimajia.slider.library.SliderLayout
+                    android:id="@+id/slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    />
+
+                <com.daimajia.slider.library.Indicators.PagerIndicator
+                    android:id="@+id/custom_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/slogan"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/tv_slogan"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="User Name"
+                android:textAlignment="center"
+                android:id="@+id/tv_username"
+                android:layout_marginBottom="2dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textColor="@color/colorBlack"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:visibility="gone"
+                android:background="@color/colorPrimary"/>
+
+            <LinearLayout
+                android:id="@+id/user_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                >
+                <LinearLayout
+                    android:id="@+id/layout_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="for Contact"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/tv_text"
+                    android:layout_marginBottom="5dp"
+                    />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+919665384814"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:id="@+id/tv_no"
+                        android:onClick="onClick"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="20dp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_booking"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:drawableTop="@drawable/ic_menu_booking"
+                        android:paddingBottom="0dp"
+                        android:layout_margin="10dp"
+                        android:text="Bookings"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:background="@drawable/border_primary"/>
+
+                    <Button
+                        android:id="@+id/btn_view"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:drawableTop="@drawable/ic_menu_view"
+                        android:layout_margin="10dp"
+                        android:text="Views"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:background="@drawable/border_primary"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_facility2"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:drawableTop="@drawable/ic_menu_facility"
+                        android:layout_margin="10dp"
+                        android:text="Facilities"
+                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="false"
+                        android:background="@drawable/border_primary"/>
+
+
+                    <Button
+                        android:id="@+id/btn_notice2"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/border_primary"
+                        android:drawableTop="@drawable/ic_menu_notice"
+                        android:text="Notice"
+                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="false"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/admin_panel"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_business"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:drawableTop="@drawable/ic_menu_business"
+                        android:layout_margin="10dp"
+                        android:text="Service Type"
+                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="false"
+                        android:background="@drawable/border_primary"/>
+
+                    <Button
+                        android:id="@+id/btn_admin_view"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:drawableTop="@drawable/ic_menu_view"
+                        android:layout_margin="10dp"
+                        android:text="Views"
+                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="false"
+                        android:background="@drawable/border_primary"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_facility"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:drawableTop="@drawable/ic_menu_facility"
+                        android:layout_margin="10dp"
+                        android:text="Facilities"
+                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="false"
+                        android:background="@drawable/border_primary"/>
+
+                    <Button
+                        android:id="@+id/btn_notice"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:paddingTop="35dp"
+                        android:layout_margin="10dp"
+                        android:background="@drawable/border_primary"
+                        android:drawableTop="@drawable/ic_menu_notice"
+                        android:text="Notice"
+                        android:textColor="@color/colorWhite"
+                        android:textAllCaps="false"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:id="@+id/layout">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ib_email"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:src="@drawable/ic_email_black_24dp"
+            android:visibility="visible"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ib_twitter"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:src="@drawable/ic_phone_black_24dp"
+            android:visibility="visible"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:id="@+id/ib_facebook"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:src="@drawable/facebookfilled"
+            android:visibility="gone"/>
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ib_instagram"
+            android:visibility="gone"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:src="@drawable/instagramfilled" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ib_whatsapp"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:src="@drawable/whatsappfilled" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ib_linkedin"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:src="@drawable/linkedinfilled"
+            android:visibility="gone"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ib_telegram"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_margin="8dp"
+            android:elevation="5dp"
+            android:src="@drawable/ic_share_black_24dp"
+            />
+
+    </LinearLayout>
+
+
+</RelativeLayout>

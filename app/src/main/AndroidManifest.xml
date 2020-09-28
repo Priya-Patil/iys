@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.netist.mygirlshostel">
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
+    <application
+        android:name=".web_api_handler.AppController"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/iysl"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/.
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".SearchNearMeActivity"
+            android:label="title_activity_search_near_me">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".MapsActivity"></activity>
+        <activity android:name=".SampleActivity"></activity>
+        <activity android:name=".advertisement.AdvertisementListActivity" />
+        <activity android:name=".advertisement.AdvRegistrationActivity" />
+        <activity android:name=".advertisement.AdvHomeActivity" />
+        <activity android:name=".advertisement.AddAdvertisementActivity" />
+        <activity android:name=".NewSplashActivity" />
+        <activity android:name=".MapTestingActivity" />
+        <activity android:name=".payment.PayMentGateWayForAdv" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
+        <activity android:name=".NewLocationActivity" />
+        <activity android:name=".advertisement.EditAdvertisementActivity" />
+        <activity android:name=".payment.SubPaymentHistoryActivity" />
+
+        <service android:name=".FCM.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".FCM.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".SplashActivity">
+
+
+        </activity>
+        <activity
+            android:name=".BaseActivity"
+            android:theme="@style/AppTheme" />
+        <activity android:name=".hostel.HostelEditorActivity" />
+        <activity android:name=".UserRegistrationActivity" />
+        <activity
+            android:name=".ContactUsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".view.ViewsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".hostel.HostelDetailActivity" />
+        <activity android:name=".BedBookingActivity" />
+        <activity
+            android:name=".WelcomeActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".hostel.HostelBookingListActivity" />
+        <activity
+            android:name=".facilities.FacilityListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".NoticeListActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".facilities.FacilityEditorActivity" />
+        <activity android:name=".hostel.HostelListForDetailsActivity" />
+        <activity android:name=".NoticeEditorActivity" />
+        <activity android:name=".NoticeDetailsActivity" />
+        <activity android:name=".facilities.FacilityDetailsActivity" />
+        <activity android:name=".FCMSenderActivity" />
+        <activity android:name=".chat.ChatUsersListActivity" />
+        <activity android:name=".chat.ChatBoxActivity" />
+        <activity android:name=".view.ViewListActivity" />
+        <activity android:name=".view.ViewEditorActivity" />
+        <activity android:name=".view.ViewDetailsActivity" />
+        <activity android:name=".ChargesListActivity" />
+        <activity android:name=".GoogleMapActivity" />
+        <activity android:name=".AccountsActivity" />
+        <activity android:name=".BusinessListActivity" />
+        <activity android:name=".mess.MessListActivity" />
+        <activity android:name=".mess.MessEditorActivity" />
+        <activity android:name=".mess.MessDetailActivity" />
+        <activity android:name=".mess.MessBookingListActivity" />
+        <activity android:name=".classes.ClassesListActivity" />
+        <activity android:name=".classes.ClassesEditorActivity" />
+        <activity android:name=".classes.ClassesDetailActivity" />
+        <activity android:name=".classes.ClassesBookingListActivity" />
+        <activity android:name=".library.LibraryListActivity" />
+        <activity android:name=".library.LibraryEditorActivity" />
+        <activity android:name=".library.LibraryDetailActivity" />
+        <activity android:name=".library.LibraryBookingListActivity" />
+        <activity android:name=".SettingsActivity" />
+        <activity android:name=".hostel.HostelListActivity" />
+        <activity android:name=".hostel.HotelListChargesActivity" />
+        <activity android:name=".mess.MessListChargesActivity" />
+        <activity android:name=".classes.ClassesListChargesActivity" />
+        <activity android:name=".library.LibraryListChargesActivity" />
+        <activity android:name=".Add_Data" />
+        <activity android:name=".Sub_history" />
+        <activity android:name=".SelectRoleActivity" />
+        <activity android:name=".SubscriptionActivity" />
+        <activity android:name=".Saved_successfully" />
+        <activity android:name=".hostel.EditHostelRoom" />
+        <activity android:name=".AddEditRooms" />
+        <activity android:name=".NewAddEditRoom" />
+        <activity android:name=".PaymentTezz" />
+        <activity android:name=".demo" />
+        <activity android:name=".library.EditLibraryHall" />
+        <activity android:name=".mess.EditMessType" />
+        <activity android:name=".classes.EditClassType" />
+        <activity android:name=".payment.PayMentGateWay" />
+        <activity android:name=".payment.PaymentHistoryActivity" />
+    </application>
+
+</manifest>

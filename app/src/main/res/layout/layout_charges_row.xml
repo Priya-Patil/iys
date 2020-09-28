@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    >
+
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#fff"/>
+
+    <TextView
+        android:id="@+id/tv_sub_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#fff"/>
+
+    <TextView
+        android:id="@+id/tv_rate"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#fff"/>
+
+    <TextView
+        android:id="@+id/tv_availability"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#fff"/>
+
+    <TextView
+        android:id="@+id/tv_select"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <Switch
+        android:id="@+id/sw_select"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:visibility="gone"
+        />
+</TableRow >

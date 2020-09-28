@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:layout_marginTop="20dp"
+    >
+
+    <TextView
+        android:id="@+id/tv_room_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <EditText
+        android:id="@+id/et_room_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:visibility="gone"
+        />
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/offWhite"/>
+
+    <TextView
+        android:id="@+id/tv_total_bed_count"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <EditText
+        android:id="@+id/et_total_bed_count"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:visibility="gone"
+        />
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/offWhite"/>
+
+    <TextView
+        android:id="@+id/tv_availability_bed_count"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        />
+
+    <EditText
+        android:id="@+id/et_availability_bed_count"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:visibility="gone"
+        />
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/offWhite"/>
+
+
+    <TextView
+        android:id="@+id/tv_occ"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <EditText
+        android:id="@+id/et_occu"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        android:background="@android:color/background_dark"
+        android:visibility="gone"
+        />
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@color/offWhite"/>
+
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:text="EDIT"
+        android:visibility="gone"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_edit"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+
+    <View
+        android:layout_width="2dp"
+        android:layout_height="match_parent"
+        android:background="#fff"/>
+
+    <Button
+        android:id="@+id/btn_set"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:text="SET"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/tv_set"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#fff"/>
+
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:visibility="gone"
+        android:text="DEL"
+        />
+
+    <TextView
+        android:id="@+id/tv_delete"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+</TableRow >

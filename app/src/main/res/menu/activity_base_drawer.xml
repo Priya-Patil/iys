@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+<!-- @android:drawable/ic_menu_agenda
+
+-->
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@android:drawable/ic_menu_camera"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_booking"
+            android:icon="@android:drawable/ic_menu_my_calendar"
+            android:title="Booking" />
+        <item android:title="Communicate">
+            <menu>
+                <item
+                    android:id="@+id/nav_views"
+                    android:icon="@android:drawable/ic_input_get"
+                    android:title="Views" />
+                <item
+                    android:id="@+id/nav_contact"
+                    android:icon="@android:drawable/ic_menu_call"
+                    android:title="Contact" />
+
+                <item
+                    android:id="@+id/nav_chat"
+                    android:icon="@android:drawable/stat_notify_chat"
+                    android:title="Chat" />
+                <item
+                    android:id="@+id/nav_share"
+                    android:icon="@android:drawable/ic_menu_send"
+                    android:title="Share" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@android:drawable/ic_secure"
+                    android:title="Logout" />
+            </menu>
+        </item>
+
+    </group>
+
+</menu>

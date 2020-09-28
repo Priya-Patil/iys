@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <!-- user_name -->
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:text="User Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dip"
+        android:textColor="@color/colorBlack"
+        />
+    <!--
+    <TextView
+        android:text="Age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_user_name"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/tv_age"/>
+    -->
+    <!-- room_name -->
+    <TextView
+        android:id="@+id/tv_room_name"
+        android:text="Room Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:textColor="@color/colorPrimary"
+        android:visibility="gone"
+        android:layout_below="@+id/tv_user_name"/>
+
+    <TextView
+        android:id="@+id/tv_date_time"
+        android:text="DateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_room_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp"/>
+
+    <TextView
+        android:id="@+id/tv_room_price_adapter"
+        android:text="DateTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_date_time"
+        android:textSize="14dp"
+        android:layout_marginTop="5dp"/>
+
+
+    <!-- months -->
+    <TextView
+        android:id="@+id/tv_paid"
+        android:text="Paid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:layout_below="@+id/tv_room_price_adapter"/>
+
+    <!-- Total Charges
+    <TextView
+        android:id="@+id/tv_total_rent"
+        android:text="Total Charges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dip"
+        android:textColor="@color/colorPrimary"
+        android:layout_below="@+id/tv_months"/>
+    -->
+
+
+
+    <TextView
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:textSize="14dp"
+        android:padding="10dp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/tvEditCharge"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ic_edit_black_24dp"
+       />
+
+    <TextView
+        android:id="@+id/tv_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tv_name"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/border_primary"
+        android:padding="10dp"
+        android:text="Status"
+        android:textColor="@color/colorWhite"
+        android:textSize="13dp"
+        android:textStyle="bold"
+        android:layout_below="@id/tvEditCharge"
+        android:layout_marginTop="20dp"/>
+
+</RelativeLayout>

@@ -1,0 +1,664 @@
+package com.netist.mygirlshostel.mess;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import androidx.appcompat.app.AppCompatActivity;
+import android.util.Base64;
+import android.util.Log;
+import android.util.SparseArray;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.firebase.client.Firebase;
+import com.google.android.gms.maps.model.LatLng;
+import com.netist.mygirlshostel.BaseActivity;
+import com.netist.mygirlshostel.GoogleMapActivity;
+import com.netist.mygirlshostel.R;
+import com.netist.mygirlshostel.components.CircularNetworkImageView;
+import com.netist.mygirlshostel.components.TypeData;
+import com.netist.mygirlshostel.web_api_handler.ApiConfig;
+import com.netist.mygirlshostel.web_api_handler.AppController;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+public class MessEditorActivity extends BaseActivity implements View.OnClickListener{
+
+    EditText et_name, et_location, et_mobile, et_password, et_vpassword,
+            et_type_count, et_type_name, et_type_charge, et_person;
+    CircularNetworkImageView mess_profile_photo;
+    String messId, name, location, picture, mobile, password, vpassword, person;
+    Integer type_count = 0;
+    boolean isImageSelected = false;
+    SparseArray<TypeData> type_list = null;
+    String action = "insert";
+    String tag_string_req;
+    LatLng mMarkerPosition;
+
+    TextView tv_map_postion;
+
+    private int REQUEST_FILE = 1;
+    private int REQUEST_CAMERA = 2;
+
+    LinearLayout layout_fix_room, layout_set_room;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mess_editor);
+
+        et_name = (EditText) findViewById(R.id.et_name);
+        et_location = (EditText) findViewById(R.id.et_location);
+        et_person = (EditText) findViewById(R.id.et_person);
+        et_type_count = (EditText) findViewById(R.id.et_type_count);
+        et_type_name = (EditText) findViewById(R.id.et_type_name);
+        et_type_charge = (EditText) findViewById(R.id.et_type_charge);
+        et_mobile = (EditText) findViewById(R.id.et_mobile );
+        et_password= (EditText) findViewById(R.id.et_password );
+        et_vpassword= (EditText) findViewById(R.id.et_vpassword );
+        mess_profile_photo = (CircularNetworkImageView) findViewById(R.id.mess_profile_photo);
+
+
+        ((Button) findViewById(R.id.btn_submit)).setOnClickListener(this);
+        ((Button) findViewById(R.id.btn_cancel)).setOnClickListener(this);
+        ((Button) findViewById(R.id.btn_type_count_set)).setOnClickListener(this);
+        ((Button) findViewById(R.id.btn_type_name_set)).setOnClickListener(this);
+        ((ImageView) findViewById(R.id.mess_profile_photo)).setOnClickListener(this);
+        ((Button) findViewById(R.id.btn_google_map)).setOnClickListener(this);
+        tv_map_postion = (TextView) findViewById(R.id.tv_map_postion);
+
+        layout_fix_room= (LinearLayout) findViewById(R.id.layout_fix_room);
+        layout_set_room=  (LinearLayout) findViewById(R.id.layout_set_room);
+        ((Button) findViewById(R.id.btn_room)).setVisibility(View.GONE);
+        ((Button) findViewById(R.id.btn_room)).setOnClickListener(this);
+
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        if (getIntent().getExtras() != null && getIntent().getExtras().containsKey("messId")) {
+
+            setTitle("Edit Mess");
+            ((Button) findViewById(R.id.btn_type_count_set)).setText("INIT");
+            ((Button) findViewById(R.id.btn_google_map)).setText("Edit Location");
+            messId = getIntent().getExtras().getString("messId");
+            //imp
+            layout_fix_room.setVisibility(View.GONE);
+            layout_set_room.setVisibility(View.GONE);
+            ((Button) findViewById(R.id.btn_room)).setVisibility(View.VISIBLE);
+
+            action = "update";
+            setEditAction();
+        } else {
+            setTitle("Add Mess");
+        }
+
+        Firebase.setAndroidContext(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_submit:
+                UploadMess();
+                break;
+            case R.id.btn_cancel:
+                this.finish();
+                break;
+            case R.id.mess_profile_photo:
+                ShowImageChooser();
+                break;
+            case R.id.btn_type_count_set:
+                SetTypeCount();
+                break;
+            case R.id.btn_type_name_set:
+                SetTypeData();
+                break;
+            case R.id.btn_date:
+                break;
+            case R.id.btn_time:
+                break;
+            case R.id.btn_google_map:
+                Intent intent = new Intent(getApplicationContext(), GoogleMapActivity.class);
+                if (mMarkerPosition != null)
+                    intent.putExtra("position", mMarkerPosition);
+                intent.putExtra("map_setting", "");
+                startActivityForResult(intent, 10);
+                break;
+            case R.id.btn_room:
+                Intent intent2 = new Intent(getApplicationContext(), EditMessType.class);
+                startActivity(intent2);
+                break;
+
+
+        }
+    }
+
+    private  void  SetTypeCount()
+    {
+        try
+        {
+            type_count = Integer.parseInt(et_type_count.getText().toString().trim());
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getApplicationContext(), "Please enter the number of type correctly!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (type_count <= 0)
+        {
+            Toast.makeText(getApplicationContext(), "Please enter the number of type correctly!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (type_list != null)
+        {
+            type_list.clear();
+            type_list = null;
+        }
+
+        type_list = new SparseArray<TypeData>(type_count);
+
+        Toast.makeText(getApplicationContext(), "The number of type : " + type_count.toString(), Toast.LENGTH_SHORT).show();
+    }
+
+    private void SetTypeData()
+    {
+        String type_name;
+        Double type_charge;
+
+        if (type_count <= 0 || type_list == null)
+        {
+            Toast.makeText(getApplicationContext(), "Please enter the number of type correctly!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (type_count <= type_list.size())
+        {
+            Toast.makeText(getApplicationContext(), "The current number of type be exceeded!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        type_name = et_type_name.getText().toString().trim();
+        if (type_name.equals(""))
+        {
+            Toast.makeText(getApplicationContext(), "Please enter the type name correctly!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        try
+        {
+            type_charge = Double.parseDouble(et_type_charge.getText().toString().trim());
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        TypeData typeData = new TypeData(type_name, type_charge);
+        type_list.put(type_list.size(), typeData);
+
+        String message = "Charge : " + type_charge.toString() + " of Type Name : " + type_name;
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
+
+        et_type_name.setText("");
+        et_type_charge.setText("");
+    }
+
+    //------------Show File Chooser-------------------
+    private void ShowImageChooser() {
+        final CharSequence[] items = {"Take Photo", "Choose from Library",
+                "Cancel"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(MessEditorActivity.this);
+        builder.setTitle("Add Photo!");
+        builder.setItems(items, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+
+                if (items[item].equals("Take Photo")) {
+
+                    Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(intent, REQUEST_CAMERA);
+
+                } else if (items[item].equals("Choose from Library")) {
+
+                    Intent intent = new Intent();
+                    intent.setType("image/*");
+                    intent.setAction(Intent.ACTION_GET_CONTENT);//
+                    startActivityForResult(Intent.createChooser(intent, "Select File"), REQUEST_FILE);
+
+                } else if (items[item].equals("Cancel")) {
+
+                    dialog.dismiss();
+                }
+            }
+        });
+        builder.show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        Bitmap thumbnail = null;
+
+        if (resultCode == 10)
+        {
+            String address = data.getStringExtra("MESSAGE");
+            if (!address.equals(""))
+            {
+                tv_map_postion.setText(address);
+                mMarkerPosition = (LatLng) data.getParcelableExtra("position");
+            }
+        }
+        else if (resultCode == Activity.RESULT_OK)
+        {
+            if (requestCode == REQUEST_FILE) {
+                Uri fileUri = data.getData();
+
+                try {
+                    //Getting the Bitmap from Gallery
+                    thumbnail = MediaStore.Images.Media.getBitmap(getContentResolver(), fileUri);
+                    //Setting the Bitmap to ImageView
+                    mess_profile_photo.setImageBitmap(thumbnail);
+                    picture = getStringImage(thumbnail);
+                    isImageSelected = true;
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else if (requestCode == REQUEST_CAMERA) {
+                thumbnail = (Bitmap) data.getExtras().get("data");
+                picture = getStringImage(thumbnail);
+                ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+                thumbnail.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+
+                mess_profile_photo.setImageBitmap(thumbnail);
+
+                isImageSelected = true;
+            }
+        }
+    }
+
+    //-------------convert Bitmap to base64 String.------------
+    public String getStringImage(Bitmap bmp) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] imageBytes = baos.toByteArray();
+        String encodedImage = Base64.encodeToString(imageBytes, Base64.DEFAULT);
+        return encodedImage;
+    }
+
+    private void setEditAction() {
+        final String tag_string_req = "MessDetailsRequest";
+
+        final ProgressDialog loading = ProgressDialog.show(this, "Updating...", "Please wait...", false, false);
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                ApiConfig.urlMessList, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("Response String", response);
+                //Disimissing the progress dialog
+                loading.dismiss();
+                try {
+                    JSONArray responseArr = new JSONArray(response);
+
+                    // Parsing json
+                    for (int type_no = 0; type_no < responseArr.length(); type_no++) {
+
+                        JSONObject obj = responseArr.getJSONObject(type_no);
+                        if (type_no == 0)
+                        {
+                            name = obj.getString("name");
+                            location = obj.getString("location");
+                            person = obj.getString("person");
+                            mobile = obj.getString("mobile");
+                            double latitude = obj.getDouble("latitude");
+                            double longitude = obj.getDouble("longitude");
+                            mMarkerPosition = new LatLng(latitude, longitude);
+                            vpassword = password = obj.getString("password");
+                            type_count = Integer.parseInt(obj.getString("type_count"));
+                            String picture = obj.getString("picture");
+                            isImageSelected = false;
+                            if (picture != null && !picture.equals(""))
+                                isImageSelected = true;
+                            if (isImageSelected)
+                            {
+                                ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+                                if (imageLoader == null)
+                                    imageLoader = AppController.getInstance().getImageLoader();
+                                mess_profile_photo.setImageUrl(ApiConfig.urlMessesImage + picture, imageLoader);
+                            }
+
+                            et_name.setText(name);
+                            et_location.setText(location);
+                            et_person.setText(person);
+                            et_mobile.setText(mobile);
+                            tv_map_postion.setText(mMarkerPosition.toString());
+                            et_password.setText(password);
+                            et_vpassword.setText(password);
+                            et_type_count.setText(type_count.toString());
+
+                            if (type_list != null)
+                            {
+                                type_list.clear();
+                                type_list = null;
+                            }
+
+                            type_list = new SparseArray<TypeData>(type_count);
+                        }
+
+                        TypeData typeData = new TypeData(obj.getString("type_name"),
+                                Double.parseDouble(obj.getString("type_charge")));
+                        type_list.put(type_no, typeData);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(tag_string_req, e.getMessage());
+                }
+                //adapter.notifyDataSetChanged();
+                loading.dismiss();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e("Registration Error: ", error.getMessage());
+                //Disimissing the progress dialog
+                loading.dismiss();
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+                params.put("id", messId);
+
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+
+    private void UploadMess() {
+
+        // name, picture, gender, dob, age, availability, specialisation, expertise, experience, language, address,
+        // email, mobile, password, isActive
+
+        name = et_name.getText().toString().trim();
+        location = et_location.getText().toString().trim();
+        person = et_person.getText().toString().trim();
+        mobile = et_mobile.getText().toString().trim();
+        password = et_password.getText().toString().trim();
+        vpassword = et_vpassword.getText().toString().trim();
+        if (name.equals("") || location.equals("") || person.equals("") || mobile.equals("") ||
+                tv_map_postion.getText().toString().equals("") ||
+                password.equals("") || vpassword.equals("")) {
+            Toast.makeText(getApplicationContext(), "Please enter the parameters correctly!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if(!password.equals(vpassword))
+        {
+            Toast.makeText(getApplicationContext(),"Verified password not matched.",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (type_count <= 0)
+        {
+            Toast.makeText(getApplicationContext(), "Please enter the number of type correctly!", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        if (type_list == null || type_count != type_list.size())
+        {
+            Toast.makeText(getApplicationContext(), "Please enter the data of all type correctly! ", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        for (Integer type_no = 0; type_no < type_count; type_no++)
+        {
+            TypeData typeData = type_list.get(type_no);
+
+            if (typeData.name.equals(""))
+            {
+                Toast.makeText(getApplicationContext(), "Please enter the data of all types correctly!", Toast.LENGTH_LONG).show();
+                return;
+            }
+        }
+
+        String tag_string_req = "MessRegistrationRequest";
+        final ProgressDialog loading = ProgressDialog.show(this, "Uploading...", "Please wait...", false, false);
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                ApiConfig.urlMessReg, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("Response String", response);
+                //Dismissing the progress dialog
+                loading.dismiss();
+
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+
+                    Toast.makeText(getApplicationContext(), jObj.getString("msg"), Toast.LENGTH_LONG).show();
+                    // Check for error node in json
+                    if (!error) {
+                        if (action.equals("insert"))
+                            RegisterChatUser(name, mobile);
+                        else
+                            UpdateBookingTotalCharges();
+
+                        MessEditorActivity.this.finish();
+                    }
+                } catch (JSONException e) {
+                    //Dismissing the progress dialog
+                    loading.dismiss();
+                    // JSON error
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(), "Json error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e("Registration Error: ", error.getLocalizedMessage());
+                //Dismissing the progress dialog
+                loading.dismiss();
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+                if (action.equals("insert")) {
+                    params.put("action", "mess_reg");
+                }
+                else {
+                    params.put("action", "mess_update");
+                    params.put("messId", messId);
+
+                }
+
+                //Fields: name, location, person, type_count, type_list, total, isImageSelected, picture
+                params.put("name", name);
+                params.put("location", location);
+                params.put("person", person);
+                params.put("mobile", mobile);
+                params.put("latitude", new Double(mMarkerPosition.latitude).toString());
+                params.put("longitude", new Double(mMarkerPosition.longitude).toString());
+                params.put("password", password);
+                params.put("type_count", type_count.toString());
+
+                for (Integer type_no = 0; type_no < type_count; type_no++)
+                {
+                    TypeData typeData = type_list.get(type_no);
+                    params.put("type_no_" + type_no.toString() + "_name", typeData.name);
+                    params.put("type_no_" + type_no.toString() + "_charge", typeData.charge.toString());
+                }
+
+                if (isImageSelected) {
+                    params.put("isImageSelected", "yes");
+                    params.put("picture", picture);
+                }
+                else
+                    params.put("isImageSelected", "no");
+
+                Log.e("URL", ApiConfig.urlMessReg);
+                Log.e("Register Params: ", params.toString());
+
+                return params;
+            }
+        };
+
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void UpdateBookingTotalCharges()
+    {
+        tag_string_req = "TotalChargesRequest";
+
+//        final ProgressDialog loading = ProgressDialog.show(this,null,"Loading List, Please wait...",false,false);
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                ApiConfig.urlMessBookingReg, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e ("Response String", response);
+                //Disimissing the progress dialog
+                //loading.dismiss();
+                try {
+                    JSONObject jObj = new JSONObject(response);
+                    boolean error = jObj.getBoolean("error");
+                    String msg = jObj.getString("msg");
+
+                    Toast.makeText(getApplicationContext(), msg, Toast.LENGTH_LONG).show();
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(tag_string_req,e.getMessage());
+                }
+                // notifying list adapter about data changes
+                // so that it renders the list view with updated data
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e(tag_string_req,  error.getMessage());
+                //Dismissing the progress dialog
+                //loading.dismiss();
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("action", "booking_update_totalCharges");
+                params.put("messId", messId);
+
+                Log.e("URL", ApiConfig.urlMessReg);
+                Log.e("Register Params: ", params.toString());
+
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+    private void RegisterChatUser(final String name, final String mobile)
+    {
+        String url = "https://healtreeapp.firebaseio.com/users.json";
+
+        StringRequest request = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                Firebase reference = new Firebase("https://healtreeapp.firebaseio.com/users");
+
+                if (s.equals("null")) {
+                    reference.child(mobile).child("password").setValue(mobile);
+                    reference.child(mobile).child("fullName").setValue(name);
+                    reference.child(mobile).child("role").setValue("h");
+
+                    Toast.makeText(MessEditorActivity.this, "Chat Enabled", Toast.LENGTH_SHORT).show();
+                } else {
+                    try {
+                        JSONObject obj = new JSONObject(s);
+
+                        if (!obj.has(mobile)) {
+                            reference.child(mobile).child("password").setValue(mobile);
+                            reference.child(mobile).child("fullName").setValue(name);
+                            reference.child(mobile).child("role").setValue("h");
+
+                            Toast.makeText(MessEditorActivity.this, "Chat Enabled", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MessEditorActivity.this, "Chat Disabled", Toast.LENGTH_SHORT).show();
+                        }
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+            }
+
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                System.out.println("" + volleyError);
+
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(MessEditorActivity.this);
+        rQueue.add(request);
+
+
+    }
+
+}

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<TableRow  xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    >
+
+    <TextView
+        android:id="@+id/tv_room_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        />
+
+    <TextView
+        android:id="@+id/tv_joining_date"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_months"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_total_rent"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_paid"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        />
+
+
+
+    <TextView
+        android:id="@+id/tv_balance"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="10sp"
+        />
+
+</TableRow >

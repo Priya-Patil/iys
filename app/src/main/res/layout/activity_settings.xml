@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.netist.mygirlshostel.SettingsActivity">
+
+    <Switch
+        android:text="Near By"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sw_nearby"
+        android:layout_margin="10dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/rl_location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sw_nearby"
+        >
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/rg_location"
+            android:orientation="horizontal"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:padding="20dp"
+            >
+
+            <RadioButton
+                android:id="@+id/user_radio"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="User Location"
+                android:checked="true"/>
+            <RadioButton
+                android:id="@+id/selected_radio"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:text="Location selected by user"
+                android:layout_weight="1"/>
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_map"
+            android:orientation="vertical"
+            android:layout_below="@+id/radio_space"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Coverage Area"
+                android:textAlignment="center"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/percent_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="0.0km"/>
+                <SeekBar
+                    android:id="@+id/map_seek"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/map_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_map_postion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Position"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:id="@+id/btn_google_map"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="Add Location"
+                    android:padding="3dp"
+                    android:textAllCaps="false"
+                    android:drawableLeft="@drawable/ic_add_black_24dp"
+                    android:textColor="@color/colorWhite"
+                    android:background="@color/colorPrimaryLite"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/radio_space"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/rg_location"
+            android:background="@color/colorPrimaryDark"
+           />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:id="@+id/map_space"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/ll_map"
+            android:background="@color/colorPrimaryDark">
+
+        </View>
+
+    </RelativeLayout>
+
+</RelativeLayout>

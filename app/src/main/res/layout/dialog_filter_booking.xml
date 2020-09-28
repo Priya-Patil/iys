@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_add_booking"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp"
+                android:layout_gravity="center_vertical">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:text="Select Date &amp; Time "
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_calendar"
+                    android:drawableTint="@color/colorPrimary"
+                    android:drawablePadding="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_from_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="From Date"
+                        android:onClick="setFromDate"
+                        android:layout_marginRight="20dp"
+                        android:textColor="@color/colorWhite"
+                        android:background="@drawable/rect_gradient"/>
+
+                    <Button
+                        android:id="@+id/btn_to_date"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="To Date"
+                        android:onClick="setToDate"
+                        android:textColor="@color/colorWhite"
+                        android:background="@drawable/rect_gradient"/>
+                </LinearLayout>
+
+            </LinearLayout>
+            <!--
+            <Button
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="Submit"
+                android:textColor="#fff"
+                android:background="@color/colorPrimary"
+                android:layout_marginTop="5dp"/>
+                -->
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>

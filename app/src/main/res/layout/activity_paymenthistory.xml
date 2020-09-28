@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_hostels"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.netist.mygirlshostel.hostel.HostelListActivity">
+
+    <!--endregion-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:id="@+id/search"
+        android:visibility="gone"
+        >
+
+        <!-- Editext for Search -->
+        <EditText
+            android:id="@+id/inputSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter name"
+            android:inputType="textPersonName"
+            android:layout_toLeftOf="@+id/btn_search"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            />
+
+        <Button
+            android:text="Search"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:id="@+id/btn_search"
+            android:background="@drawable/border_primary"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            />
+    </RelativeLayout>
+
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:id="@+id/lv_hostelList"
+        />
+
+
+</LinearLayout>

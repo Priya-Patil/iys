@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.netist.mygirlshostel.PaymentTezz"
+    android:background="@color/colorGrey">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/textView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/iysl" />
+
+        <TextView
+            android:id="@+id/tv_slogan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/slogan"
+            android:textAlignment="center"
+            android:textColor="@color/colorBlack" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+                <TextView
+                    android:id="@+id/tv_no"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="Pay subscription fee amount"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorBlack"
+                    android:textIsSelectable="true"
+                    android:textSize="20dp" />
+
+                <LinearLayout
+                    android:id="@+id/llActivityPaymentTezzDynamicNumbers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"></LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_appname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="20dp"
+                        android:text="Download app link"
+                        android:textAlignment="center"
+                        android:textColor="@color/colorAccent"
+                        android:visibility="gone" />
+
+                    <!-- <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="https://play.google.com/store/apps/details?id=com.google.android.apps.nbu.paisa.user"
+                         android:textColor="#ffffff"
+                         android:id="@+id/tv_applink"
+                         android:layout_marginTop="20dp"
+                         android:layout_marginLeft="30dp"
+                         android:onClick="onClick"
+                        />-->
+
+                    <Button
+                        android:id="@+id/tv_applink"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Pay"
+                        android:padding="10dp"
+                        android:background="@drawable/card_circular_rect"
+                        android:textColor="@color/colorBlack"
+                        android:drawableLeft="@drawable/credit_card"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

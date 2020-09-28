@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.netist.mygirlshostel.advertisement.AddAdvertisementActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+
+        <ImageView
+            android:id="@+id/iv_backprofile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:src="@drawable/ic_arrow_back"
+            android:visibility="visible"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:text="Advertisement"
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_toRightOf="@+id/iv_backprofile"/>
+
+        <ImageView
+            android:id="@+id/iv_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_home_black_24dp"
+            android:layout_alignParentRight="true"
+
+            />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="10dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="Topic Name"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical">
+
+            <EditText
+                android:id="@+id/tv_sub_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:hint="sub"
+                android:textColor="@color/colorPrimary"
+                android:text="sub"
+                android:textSize="15dp"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/et_topicname"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="#243343"
+                android:hint="Topic Name"
+                android:inputType="textPersonName"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="#b6b5b5"
+                android:textSize="15dp"
+                android:layout_toRightOf="@id/tv_sub_name"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="Advertisement Expiry Date"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorPrimary"
+            />
+
+        <TextView
+            android:id="@+id/tv_Date"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:drawableLeft="@drawable/ic_calendar"
+            android:drawableTint="@color/colorPrimary"
+            android:drawablePadding="10dp"
+            android:gravity="center_vertical"
+            android:backgroundTint="#243343"
+            android:hint="Choose Submission Date"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="#b6b5b5"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="Expiry Date"
+            android:textColor="@color/colorPrimary"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_ExpDate"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#243343"
+            android:hint="Expiry Date"
+            android:inputType="textPersonName"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="#b6b5b5"
+            android:textSize="15dp"
+            android:visibility="gone"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="Attachment"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorPrimary" />
+
+        <!--Email-->
+        <TextView
+            android:id="@+id/et_attach"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_marginTop="5dp"
+            android:backgroundTint="#243343"
+            android:drawableRight="@drawable/ic_attachment_black_24dp"
+            android:hint="Attachment"
+            android:paddingTop="15dp"
+            android:inputType="textPersonName"
+            android:textSize="15dp"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="#b6b5b5"
+            />
+
+        <RelativeLayout
+            android:id="@+id/rl_img_delete"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_delete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_clear_black_24dp" />
+
+            <ImageView
+                android:id="@+id/img_title"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:visibility="visible"
+                android:src="@drawable/male_avatar"
+                android:layout_below="@id/iv_delete"/>
+
+        </RelativeLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="10dp"
+            android:text="Short details of advertisement, this will appear on advertisement"
+            android:textColor="@color/colorPrimary" />
+
+        <EditText
+            android:id="@+id/et_message"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="5dp"
+            android:hint="Your Message Here"
+            android:textSize="15dp"
+            android:gravity="left"
+            android:padding="5dp"
+            android:inputType="textMultiLine"
+            android:textColor="@color/colorBlack"
+            android:background="@drawable/rectangle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/colorPrimary"
+            android:id="@+id/txt_amount"/>
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_background"
+            android:text="Continue"
+            android:textColor="@color/colorWhite"
+            android:textSize="15dp"
+            android:visibility="visible"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

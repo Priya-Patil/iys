@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_library_data"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.netist.mygirlshostel.library.LibraryDetailActivity"
+    android:background="#fff">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/admin_panel">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="@color/colorGrey">
+
+                <!-- Thumbnail Image -->
+
+                <com.netist.mygirlshostel.components.CircularNetworkImageView
+                    android:id="@+id/img_thumbnail"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:fitsSystemWindows="true"
+                    android:clickable="true"
+                    android:src="@drawable/library_reg"
+                    android:padding="5dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/image_bg_accent"
+                    android:layout_centerHorizontal="true"/>
+
+                <TextView
+                    android:text="Name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_name"
+                    android:textColor="@color/colorBlack"
+                    android:layout_centerHorizontal="true"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/img_thumbnail"/>
+
+                <TextView
+                    android:text="Availability"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_availability"
+                    android:textColor="@color/colorBlack"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/tv_name"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimaryDark"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+
+                <TextView
+                    android:id="@+id/tv_location_label"
+                    android:text="Location : "
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack" />
+
+
+                <TextView
+                    android:text="Location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_location"
+                    android:textColor="@color/colorAccent"
+                    android:layout_toRightOf="@+id/tv_location_label"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"/>
+
+                <TextView
+                    android:id="@+id/tv_hall_count_label"
+                    android:text="Number Of Halls :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/tv_location_label"
+                    />
+
+                <TextView
+                    android:text="Number Of Halls"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_hall_count"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/tv_location"
+                    android:layout_toRightOf="@+id/tv_hall_count_label"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_person_label"
+                    android:text="Contact Person :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/tv_hall_count_label"
+                    />
+
+                <TextView
+                    android:text="Contact Person :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_person"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/tv_hall_count"
+                    android:layout_toRightOf="@+id/tv_person_label"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_contact_no_label"
+                    android:text="Contact no :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlack"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/tv_person_label"
+                    />
+
+                <TextView
+                    android:text="Contact no :"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_contact_no"
+                    android:textColor="@color/colorAccent"
+                    android:layout_marginTop="8dp"
+                    android:layout_below="@+id/tv_person"
+                    android:layout_toRightOf="@+id/tv_person_label"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    />
+
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/profile_devider1"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/colorPrimaryDark"
+                android:layout_below="@+id/tv_contact_no_label"
+                android:visibility="gone"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_google_map"
+                android:text="Google Map"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/rect_gradient"
+                android:textColor="@color/colorWhite"/>
+
+            <TableLayout
+                android:id="@+id/tl_hall_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                >
+
+            </TableLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/admin_panel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+        <Button
+            android:id="@+id/btn_delete_profile"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:textColor="#fff"
+            android:background="@color/colorPrimary"/>
+        <Button
+            android:id="@+id/btn_edit_profile"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:textColor="#fff"
+            android:background="@color/colorAccent"/>
+        <Button
+            android:id="@+id/btn_get_booking"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Track"
+            android:textColor="#fff"
+            android:background="@color/colorPrimary"/>
+
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.netist.mygirlshostel.advertisement.AdvertisementListActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+
+            <ImageView
+                android:id="@+id/iv_backprofile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:src="@drawable/ic_arrow_back"
+                android:visibility="visible"/>
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:text="Advertisement"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_toRightOf="@+id/iv_backprofile"/>
+
+            <ImageView
+                android:id="@+id/iv_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_home_black_24dp"
+                android:layout_alignParentRight="true"
+
+                />
+        </RelativeLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+    <Button
+        android:id="@+id/btn_request"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="Click here to view Request"
+        android:layout_margin="10dp"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/toolbar"
+        android:visibility="gone"/>
+     <Button
+            android:id="@+id/btn_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:text="Click here to view Accounts"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@+id/btn_request"/>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_attachment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#243343"
+        android:drawableRight="@drawable/ic_attachment_black_24dp"
+        android:hint="Attachment"
+        android:paddingTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:orientation="vertical"
+        android:layout_below="@id/btn_account"
+        android:visibility="visible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_account"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#243343"
+        android:drawableRight="@drawable/ic_attachment_black_24dp"
+        android:paddingTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:inputType="textPersonName"
+        android:maxLength="10"
+        android:orientation="vertical"
+        android:layout_below="@id/btn_account"
+        android:visibility="gone"/>
+
+
+
+
+</RelativeLayout>

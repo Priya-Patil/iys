@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/layout1">
+
+        <EditText
+            android:layout_width="248dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText"
+            android:layout_weight="0.5"
+            android:inputType="textPersonName"
+            android:hint="Search Location" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:onClick="searchLocation"
+            android:text="Search" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:id="@+id/seek_barlayout"
+        android:layout_below="@+id/layout1"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ll_map"
+            android:orientation="vertical"
+            android:layout_below="@+id/radio_space"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@+id/btn_seekbar"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="Set Coverage Area"
+                android:textAlignment="center"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+                <TextView
+                    android:id="@+id/percent_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="0.0km"/>
+                <SeekBar
+                    android:id="@+id/seek_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    />
+            </LinearLayout>
+            <RelativeLayout
+                android:id="@+id/map_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:visibility="gone">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    >
+
+                    <TextView
+                        android:id="@+id/tv_map_postion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:ems="10"
+                        android:hint="Position"
+                        />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btn_google_map"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:text="Add Location"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/btn_seekbar"
+            android:background="@drawable/ic_search_black_24dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:visibility="invisible"
+            />
+    </RelativeLayout>
+
+
+    <Button
+        android:text="Search hostel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_hostel_type"
+        android:background="@color/colorPrimary"
+        android:layout_alignParentRight="true"
+        android:visibility="visible"
+        android:textColor="@color/colorWhite"
+        android:layout_below="@+id/seek_barlayout"
+        />
+
+
+    <fragment
+    android:id="@+id/map"
+    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+        android:layout_below="@+id/btn_hostel_type"
+    >
+
+</fragment>
+</RelativeLayout>

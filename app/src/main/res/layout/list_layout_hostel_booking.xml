@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#fff">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="5dp"
+        android:layout_margin="2dp"
+        android:visibility="visible"
+        >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin">
+    <!-- hostel_name -->
+    <TextView
+        android:id="@+id/tv_hostel_name"
+        android:text="Hostel Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dip"
+        android:visibility="gone" />
+
+    <!-- room_name -->
+    <TextView
+        android:id="@+id/tv_room_name"
+        android:text="Hostel Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dip"
+        android:visibility="gone"
+        android:layout_below="@+id/tv_hostel_name"/>
+
+    <!-- user_name -->
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:text="User Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dip"
+        android:layout_below="@+id/tv_room_name"/>
+
+    <TextView
+        android:id="@+id/tv_no"
+        android:text="No"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12dp"
+        android:textStyle="bold"
+        android:layout_marginTop="5dip"
+        android:layout_below="@+id/tv_user_name"/>
+
+    <Button
+        android:id="@+id/btn_date_time"
+        android:text="DateTime"
+        android:layout_marginTop="5dp"
+        android:drawableLeft="@drawable/ic_calendar"
+        android:drawablePadding="5dp"
+        android:drawableTint="@color/colorPrimary"
+        android:background="@color/colorWhite"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_below="@+id/tv_no"
+        android:textAllCaps="false"/>
+
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="SelectDate"
+        android:background="@color/colorPrimary"
+        android:textColor="#ffffff"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/btn_date"
+        android:visibility="gone" />
+
+    <TextView
+        android:text="Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:id="@+id/tv_status"
+        android:padding="5dp"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/colorWhite"
+        android:background="@drawable/border_primary"
+        android:layout_alignTop="@+id/tv_name"/>
+
+    <Button
+        android:id="@+id/btn_date"
+        android:layout_marginTop="15dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_below="@+id/tv_status"
+        android:gravity="center_vertical"
+        android:drawableLeft="@drawable/ic_edit_black_24dp"
+        android:background="@color/colorWhite"
+        android:layout_alignParentRight="true"
+        android:textAllCaps="false" />
+
+    <ImageView
+        android:id="@+id/iv_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_edit_black_24dp"
+        android:padding="5dp"
+        android:visibility="gone"
+        android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

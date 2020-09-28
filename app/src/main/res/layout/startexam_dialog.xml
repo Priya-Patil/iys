@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+     >
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/float_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cross"
+        android:layout_alignParentRight="true"
+        app:backgroundTint="@android:color/white"
+        android:scaleType="fitXY"
+        android:elevation="8dp"
+        android:padding="6dp"
+        />
+
+
+    <ScrollView
+
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView">
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_10"
+            android:background="@color/colorGrey"
+            >
+
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="@dimen/padding_20"
+                android:background="@color/colorWhite">
+
+
+                <RelativeLayout
+                    android:id="@+id/layout_instructions"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        android:id="@+id/txt_instructions"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/padding_20"
+                        android:layout_centerHorizontal="true"
+                        />
+
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/txt_exam_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Image Preview"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/layout_instructions"
+                    android:layout_marginTop="5dp"
+                    android:textSize="@dimen/padding_20"
+                    android:layout_centerHorizontal="true"
+                    />
+
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/layout_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/txt_exam_title"
+                android:paddingBottom="@dimen/padding_10"
+                android:background="@color/colorWhite"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txt_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="start_exam_title"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:background="@color/colorWhite"
+                    />
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="30dp"
+                android:layout_below="@+id/toolbar">
+
+                <!-- TODO: Update blank fragment layout -->
+                <ImageView
+                    android:layout_height="200dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/iysl"
+                    android:padding="@dimen/padding_10"
+                    android:id="@+id/img1"/>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+    <Button
+        android:id="@+id/btn_start_exam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/colorPrimary"
+        android:text="Ok"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:layout_below="@+id/scrollView"
+        android:padding="@dimen/padding_10"/>
+
+
+
+</RelativeLayout>
