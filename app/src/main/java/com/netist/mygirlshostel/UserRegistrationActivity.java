@@ -51,7 +51,7 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
     //Button btn_dob;
     String name, /*dob, age, email,*/ address, mobile, password, vpassword;
     int year, month, day;
-    String OTP;
+    String OTP="123456";
     Dialog resultbox;
 
     @Override
@@ -94,8 +94,10 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
     public void onClick(View v) {
         if (v.getId() == R.id.btn_submit) {
 
-            OTP = GenerateRandomNumber(6);
-            sendSMS(OTP);
+            RegisterUser();
+
+            //   OTP = GenerateRandomNumber(6);
+         //   sendSMS(OTP);
         }
     }
 
@@ -227,7 +229,7 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
                             JSONObject jObj = new JSONObject(response);
                             boolean error = jObj.getBoolean("error");
 
-                            Toast.makeText(getApplicationContext(),jObj.getString("msg"), Toast.LENGTH_LONG).show();
+                          //  Toast.makeText(getApplicationContext(),jObj.getString("msg"), Toast.LENGTH_LONG).show();
                             // Check for error node in json
                             if (!error) {
                                 RegisterChatUser(jObj.getString("id"),name, mobile);
@@ -329,7 +331,7 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
                         reference.child(mobile).child("fullName").setValue(name);
                         reference.child(mobile).child("role").setValue("u");
 
-                        Toast.makeText(UserRegistrationActivity.this, "Chat Enabled", Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(UserRegistrationActivity.this, "Chat Enabled", Toast.LENGTH_SHORT).show();
                     }
                     else {
                         try {
@@ -340,9 +342,9 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
                                 reference.child(mobile).child("fullName").setValue(name);
                                 reference.child(mobile).child("role").setValue("u");
 
-                                Toast.makeText(UserRegistrationActivity.this, "Chat Enabled", Toast.LENGTH_SHORT).show();
+                             //   Toast.makeText(UserRegistrationActivity.this, "Chat Enabled", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(UserRegistrationActivity.this, "Chat Disabled", Toast.LENGTH_SHORT).show();
+                              //  Toast.makeText(UserRegistrationActivity.this, "Chat Disabled", Toast.LENGTH_SHORT).show();
                             }
 
                         } catch (JSONException e) {
@@ -371,9 +373,9 @@ public class UserRegistrationActivity extends BaseActivity implements View.OnCli
             session.setUserName(name);
             session.setUserMobile(mobile);
 
-        resultbox.cancel();
+       // resultbox.cancel();
 
-        Intent intent = new Intent(UserRegistrationActivity.this, MainActivity.class);
+            Intent intent = new Intent(UserRegistrationActivity.this, MainActivity.class);
             startActivity(intent);
 
             UserRegistrationActivity.this.finish();

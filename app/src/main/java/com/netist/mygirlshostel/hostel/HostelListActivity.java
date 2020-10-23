@@ -1,31 +1,24 @@
 package com.netist.mygirlshostel.hostel;
 
-import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -36,7 +29,7 @@ import com.netist.mygirlshostel.AccountsActivity;
 import com.netist.mygirlshostel.BaseActivity;
 import com.netist.mygirlshostel.BusinessListActivity;
 import com.netist.mygirlshostel.ChargesListActivity;
-import com.netist.mygirlshostel.MapsActivity;
+import com.netist.mygirlshostel.map.MapsActivity;
 import com.netist.mygirlshostel.PaymentTezz;
 import com.netist.mygirlshostel.facilities.FacilityListActivity;
 import com.netist.mygirlshostel.NoticeListActivity;
@@ -57,7 +50,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class HostelListActivity extends BaseActivity implements View.OnClickListener, LocationListener {
@@ -148,9 +140,9 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
             findViewById(R.id.btn_add_hostel).setVisibility(View.GONE);
             if (bundle.containsKey("booking"))
                 findViewById(R.id.btn_list_charges).setVisibility(View.VISIBLE);
-            Toast.makeText(this, "okkk", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(this, "okkk", Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(this, "noooo", Toast.LENGTH_SHORT).show();
+          //  Toast.makeText(this, "noooo", Toast.LENGTH_SHORT).show();
 
             findViewById(R.id.btn_add_hostel).setVisibility(View.VISIBLE);
         }
@@ -325,7 +317,7 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
     }
 
 
-    private void setHostelList(String type) {
+    private void setHostelList(String type, String offset, String limit) {
         tag_string_req = "HostelListRequest";
 
         hostelList = new ArrayList<HashMap<String, String>>();
@@ -407,12 +399,17 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
                 if (prefManager.getAREA_SELECTED().equals("area1")) {
                     params.put("id", "0");
                     params.put("type", type);
+                    params.put("offset", offset);
+                    params.put("limit", limit);
 
                     //  params.put("id",session.getUserID());
                 } else if (prefManager.getAREA_SELECTED().equals("details")) {
                     params.put("id", "1");
                     params.put("type", type);
                     params.put("mobile", prefManager.getMOBILE_SELECTED());
+                    params.put("offset", offset);
+                    params.put("limit", limit);
+
                 }
 
                /* if (!session.getUserNearby())
@@ -590,7 +587,15 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_search:
-                setAllForSearchForUser(inputSearch.getText().toString());
+                if(inputSearch.getText().toString().equals(""))
+                {
+                    Toast.makeText(HostelListActivity.this, "Enter name", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    setAllForSearchForUser(inputSearch.getText().toString());
+
+                }
+
                 break;
 
             case R.id.btn_seekbar:
@@ -932,14 +937,14 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
                     type="1";
                     prefManager.setType("1");
                     Toast.makeText(HostelListActivity.this, "girls hostel", Toast.LENGTH_SHORT).show();
-                    setHostelList(type);
+                    setHostelList(type, "0","100");
                 }
                 else
                 {
                     type="2";
                     prefManager.setType("2");
                     Toast.makeText(HostelListActivity.this, "boys hostel", Toast.LENGTH_SHORT).show();
-                    setHostelList(type);
+                    setHostelList(type,"0","100");
                 }
             }
         });

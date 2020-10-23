@@ -35,6 +35,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.netist.mygirlshostel.BaseActivity;
 import com.netist.mygirlshostel.GoogleMapActivity;
 import com.netist.mygirlshostel.R;
+import com.netist.mygirlshostel.WelcomeActivity;
 import com.netist.mygirlshostel.components.CircularNetworkImageView;
 import com.netist.mygirlshostel.components.RoomData;
 import com.netist.mygirlshostel.components.Utils;
@@ -117,7 +118,7 @@ public class HostelEditorActivity extends BaseActivity implements View.OnClickLi
             setTitle("Edit Hostel");
             ((Button) findViewById(R.id.btn_room_count_set)).setText("Edit");
             ((Button) findViewById(R.id.btn_google_map)).setText("Pick");
-            //((Button) findViewById(R.id.btn_google_map)).setText("Edit Location");
+            //((Button) findViewById(R.id.btn_goog+le_map)).setText("Edit Location");
             hostelId = getIntent().getExtras().getString("hostelId");
             prevCharges = getIntent().getExtras().getString("charges");
 
@@ -552,7 +553,8 @@ public class HostelEditorActivity extends BaseActivity implements View.OnClickLi
                             UpdateBookingTotalCharges();
 
                       //  HostelEditorActivity.this.finish();
-                        Utility.launchActivity(HostelEditorActivity.this,HostelListActivity.class,true);
+                      //  Utility.launchActivity(HostelEditorActivity.this,HostelListActivity.class,true);
+                        Utility.launchActivity(HostelEditorActivity.this, WelcomeActivity.class,true);
                     }
                 } catch (JSONException e) {
                     //Dismissing the progress dialog

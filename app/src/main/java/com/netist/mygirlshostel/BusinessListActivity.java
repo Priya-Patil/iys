@@ -24,6 +24,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.netist.mygirlshostel.adapter.BusinessListAdapter;
 import com.netist.mygirlshostel.classes.ClassesEditorActivity;
 import com.netist.mygirlshostel.classes.ClassesListActivity;
+import com.netist.mygirlshostel.hostel.AddHostelActivity;
 import com.netist.mygirlshostel.hostel.HostelEditorActivity;
 import com.netist.mygirlshostel.hostel.HostelListActivity;
 import com.netist.mygirlshostel.library.LibraryEditorActivity;
@@ -32,6 +33,7 @@ import com.netist.mygirlshostel.mess.MessEditorActivity;
 import com.netist.mygirlshostel.mess.MessListActivity;
 import com.netist.mygirlshostel.payment.SubPaymentHistoryActivity;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
+import com.netist.mygirlshostel.utils.Utility;
 import com.netist.mygirlshostel.web_api_handler.ApiConfig;
 import com.netist.mygirlshostel.web_api_handler.AppController;
 
@@ -83,11 +85,11 @@ public class BusinessListActivity extends BaseActivity implements View.OnClickLi
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 HashMap<String,String> item = businessList.get(i);
                 String type = item.get("name");
-
                 if (charges.equals("adminSubCharges")){
                  // imp   getSubCharges(type);
                     getSubCharges(type);
                 }
+
                 else if(session.getUserType().equals("admin") || session.getUserType().equals("user")) {
                     switch (type) {
                         case "Hostel": {
@@ -99,38 +101,38 @@ public class BusinessListActivity extends BaseActivity implements View.OnClickLi
                         }
                         break;
                         case "Mess": {
-                            Intent intent = new Intent(getApplicationContext(), MessListActivity.class);
-
+                          /*  Intent intent = new Intent(getApplicationContext(), MessListActivity.class);
                             Bundle bundle = getIntent().getExtras();
                             if (bundle != null)
                                 intent.putExtras(bundle);
 
-                            startActivity(intent);
+                            startActivity(intent);*/
+                            Toast.makeText(BusinessListActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
                         }
                         break;
                         case "Classes": {
-                            Intent intent = new Intent(getApplicationContext(), ClassesListActivity.class);
-
+                            /*Intent intent = new Intent(getApplicationContext(), ClassesListActivity.class);
                             Bundle bundle = getIntent().getExtras();
                             if (bundle != null)
                                 intent.putExtras(bundle);
-                               startActivity(intent);
+                               startActivity(intent);*/
+                            Toast.makeText(BusinessListActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
+
                         }
                         break;
                         case "Library": {
-                            Intent intent = new Intent(getApplicationContext(), LibraryListActivity.class);
-
+                            /*Intent intent = new Intent(getApplicationContext(), LibraryListActivity.class);
                             Bundle bundle = getIntent().getExtras();
                             if (bundle != null)
                                 intent.putExtras(bundle);
+                            startActivity(intent);*/
+                            Toast.makeText(BusinessListActivity.this, "Coming soon", Toast.LENGTH_SHORT).show();
 
-                            startActivity(intent);
                         }
                         break;
                         case "View Accounts": {
-                            Toast.makeText(BusinessListActivity.this, "ccccc", Toast.LENGTH_SHORT).show();
+                          //  Toast.makeText(BusinessListActivity.this, "ccccc", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), SubPaymentHistoryActivity.class);
-
                             Bundle bundle = getIntent().getExtras();
                             if (bundle != null)
                                 intent.putExtras(bundle);
@@ -145,8 +147,8 @@ public class BusinessListActivity extends BaseActivity implements View.OnClickLi
                     switch (type) {
                         case "Hostel": {
                             //addHostel();
-                            Intent intent = new Intent(getApplicationContext(), HostelEditorActivity.class);
-                            startActivity(intent);
+                            Utility.launchActivity(BusinessListActivity.this, AddHostelActivity.class,true);
+
                         }
                         break;
                         case "Mess": {

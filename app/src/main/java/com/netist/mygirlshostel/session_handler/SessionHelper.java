@@ -181,7 +181,7 @@ public class SessionHelper {
     /********** Get Functions ************/
 
     public String getUserType() {
-        return mInstance.getString(KEY_USER_TYPE,"");
+        return mInstance.getString(KEY_USER_TYPE,null);
     }
 
     public float getUserLatitude()

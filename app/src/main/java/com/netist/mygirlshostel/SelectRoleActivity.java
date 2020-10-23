@@ -22,6 +22,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.netist.mygirlshostel.constants.PrefManager;
+import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class SelectRoleActivity extends AppCompatActivity implements View.OnClic
     CircleImageView ib_linkedin;
     CircleImageView ib_telegram;
     CircleImageView ib_email;
+    SessionHelper sessionHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,7 @@ public class SelectRoleActivity extends AppCompatActivity implements View.OnClic
         cv_adv.setOnClickListener(this);
         cv_Trust.setOnClickListener(this);
         prefManager=new PrefManager(SelectRoleActivity.this);
+        sessionHelper=new SessionHelper(SelectRoleActivity.this);
         ib_twitter = findViewById(R.id.ib_twitter);
         ib_facebook = findViewById(R.id.ib_facebook);
         ib_instagram = findViewById(R.id.ib_instagram);
@@ -123,6 +126,8 @@ public class SelectRoleActivity extends AppCompatActivity implements View.OnClic
                     public void onClick(DialogInterface dialogInterface, int i) {
                         role_type = typeList[typeIndex].toString();
                         prefManager.setROLE(role_type);
+                        sessionHelper.setUserType(role_type);
+
 
                         Log.d("role_type", role_type);
                         Utility.launchActivity(SelectRoleActivity.this, WelcomeActivity.class, true);

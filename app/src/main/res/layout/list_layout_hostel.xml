@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/layout2"
             android:layout_toRightOf="@+id/layout1"
-            android:layout_toLeftOf="@+id/tv_facility"
+            android:layout_toLeftOf="@+id/img_location"
             >
     <TextView
         android:id="@+id/tv_name"
@@ -60,7 +60,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_name"
         android:layout_marginTop="5dip"
-        android:textSize="14dp" />
+        android:textSize="14dp"
+        />
 
         </RelativeLayout>
 
@@ -93,17 +94,16 @@
          android:layout_toLeftOf="@+id/tv_view"
               />
 
-  <ImageView
-            android:id="@+id/img_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:padding="3dp"
-            android:layout_toLeftOf="@+id/tv_facility"
-           android:background="@drawable/location"
-           android:backgroundTint="@color/colorPrimary"
-              />
+            <ImageView
+                android:id="@+id/img_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/tv_facility"
+                android:background="@drawable/location"
+                android:backgroundTint="@color/colorPrimary"
+                android:padding="3dp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

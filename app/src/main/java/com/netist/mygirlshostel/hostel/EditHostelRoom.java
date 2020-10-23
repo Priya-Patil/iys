@@ -69,15 +69,11 @@ public class EditHostelRoom extends BaseActivity implements View.OnClickListener
         et_available= (EditText) findViewById(R.id.et_available);
         et_charges= (EditText) findViewById(R.id.et_charges);
 
-
-
         hostelIdfrom = prefManager.getHOSTELID_SELECTED();
-
         Log.e( "onCreate: ", hostelIdfrom);
      //   Toast.makeText(getApplicationContext(), "hostelIdfrom"+hostelIdfrom, Toast.LENGTH_LONG).show();
-            setTitle("Room Info");
-
-            setSubscriptionDetail();
+        setTitle("Room Info");
+        setSubscriptionDetail();
     }
 
 

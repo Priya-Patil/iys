@@ -156,6 +156,7 @@ public class BaseActivity extends AppCompatActivity
             navigationView.getMenu().add("Logout").setIcon(R.drawable.ic_menu_logout);
         }
 
+
         navigationView.setNavigationItemSelectedListener(this);
 
     }
@@ -546,25 +547,18 @@ public class BaseActivity extends AppCompatActivity
           /*  Intent intent = new Intent(getApplicationContext(),Add_Data.class);
             startActivity(intent);*/
 
-           /* Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "http://healtree.co.in/");
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
-            return true;*/
+            try {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/plain");
+                shareIntent.putExtra(Intent.EXTRA_SUBJECT, "My application name");
+                String shareMessage= "\nLet me recommend you this application\n\n";
+                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID +"\n\n";
+                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+                startActivity(Intent.createChooser(shareIntent, "choose one"));
+            } catch(Exception e) {
+                //e.toString();
+            }
 
-            int applicationNameId =getApplicationInfo().labelRes;
-            final String appPackageName =getPackageName();
-            String text = "Install this application: ";
-            String link = "https://play.google.com/store/apps/details?id=" +
-                    appPackageName;
-
-            Intent sendIntent = new Intent("android.intent.action.MAIN");
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.setType("text/plain");
-            sendIntent.putExtra(Intent.EXTRA_SUBJECT, "My Girls Hostel "+applicationNameId);
-            sendIntent.putExtra(Intent.EXTRA_TEXT, "" + text+ "  "+link);
-            startActivity(Intent.createChooser(sendIntent, "Share App"));
 
         }
         else if (title.equals("Logout"))
@@ -572,6 +566,7 @@ public class BaseActivity extends AppCompatActivity
 
             SessionHelper session = new SessionHelper(getApplicationContext());
             session.setLogin(false);
+            session.setUserType(null);
            /* Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
             startActivity(intent);
             this.finish();*/

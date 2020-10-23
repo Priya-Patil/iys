@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -40,6 +42,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
@@ -58,6 +61,10 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
 
     PrefManager prefManager;
     int total_rooms=0;
+
+    ArrayList<HashMap<String, String>> chargesList;
+    TableLayout table;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +75,8 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
         getSupportActionBar().setHomeButtonEnabled(true);
         setTitle("Hostel Details");
 
+        chargesList = new ArrayList<HashMap<String, String>>();
+
         final SessionHelper session = new SessionHelper(getApplicationContext());
 
         userId = session.getUserID();
@@ -75,18 +84,17 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
 
         hostelId = getIntent().getExtras().getString("hostelId");
         prefManager.setHOSTELID_SELECTED(hostelId);
+        // Toast.makeText(getApplicationContext(), "hostelId"+hostelId, Toast.LENGTH_LONG).show();
+        hostelName = getIntent().getExtras().getString("name");
+        hostelImage = getIntent().getExtras().getString("picture");
+        hostelAvailability = getIntent().getExtras().getString("availability");
 
 
         //imp
         selectTotalCountAfterDelete();
         updateTotalCountAfterDlete();
-        setDetails();
-
-
-       // Toast.makeText(getApplicationContext(), "hostelId"+hostelId, Toast.LENGTH_LONG).show();
-        hostelName = getIntent().getExtras().getString("name");
-        hostelImage = getIntent().getExtras().getString("picture");
-        hostelAvailability = getIntent().getExtras().getString("availability");
+       // setDetails();
+        setDetailsNew();
 
 
         btn_action = (Button)findViewById(R.id.btn_get_booking);
@@ -396,7 +404,7 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
     }
 
 
-    //details
+  /*  //details
     private void setDetails()
     {
         tag_string_req = "HostelDetailsRequest";
@@ -424,6 +432,7 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
                     ((TextView)row.findViewById(R.id.tv_total_bed_count)).setText("Total");
                     ((TextView)row.findViewById(R.id.tv_occupancy_bed_count)).setText("Occupancy");
                     ((TextView)row.findViewById(R.id.tv_availability_bed_count)).setText("Availability");
+
                     table.addView(row);
 
                     // Parsing json
@@ -519,7 +528,7 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
 
         //end
     }
-
+*/
     private void deleteHostel()
     {
         tag_string_req = "DeleteHostelRequest";
@@ -718,4 +727,158 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
     public void onBackPressed() {
         super.onBackPressed();
     }
+
+
+    private void setDetailsNew() {
+
+        tag_string_req = "RefreshRoomInfoRequest";
+      //  chargesList = new ArrayList<HashMap<String, String>>();
+
+        final ProgressDialog loading = ProgressDialog.show(this, null, "Loading List, Please wait...", false, false);
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                ApiConfig.urlHostelList, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("Response String", response);
+                //Disimissing the progress dialog
+                loading.dismiss();
+                try {
+                    JSONArray responseArr = new JSONArray(response);
+                    chargesList.clear();
+
+                    table = (TableLayout) findViewById(R.id.tl_room_data);
+                    table.removeAllViews();
+
+                    LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService
+                            (Context.LAYOUT_INFLATER_SERVICE);
+
+                    TableRow row = (TableRow) inflater.inflate(R.layout.layout_charges_row, null);
+
+                    // Room No, Total Count, Occupancy Count, Availability Count
+                    ((TextView) row.findViewById(R.id.tv_name)).setText("Hostel");
+                    ((TextView) row.findViewById(R.id.tv_sub_name)).setText("Room");
+                    ((TextView) row.findViewById(R.id.tv_rate)).setText("Charge");
+                    ((TextView) row.findViewById(R.id.tv_availability)).setText("Availability");
+                    ((TextView) row.findViewById(R.id.tv_select)).setText("Booking");
+                    table.addView(row);
+
+                    // Parsing json
+                    for (int i = 0; i < responseArr.length(); i++) {
+
+                        final JSONObject obj = responseArr.getJSONObject(i);
+
+                        row = (TableRow) inflater.inflate(R.layout.layout_charges_row, null);
+
+                        ((TextView) row.findViewById(R.id.tv_name)).setText(obj.getString("name"));
+                        ((TextView) row.findViewById(R.id.tv_sub_name)).setText(obj.getString("r_name"));
+                        ((TextView) row.findViewById(R.id.tv_rate)).setText(obj.getString("r_total"));
+                        ((TextView) row.findViewById(R.id.tv_availability)).setText(obj.getString("r_availability"));
+                        ((TextView) row.findViewById(R.id.tv_select)).setVisibility(View.GONE);
+
+                        Switch aSwitch =(Switch) row.findViewById(R.id.sw_select);
+                        aSwitch.setVisibility(View.VISIBLE);
+
+                        //imp
+                        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                            @Override
+                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                if (isChecked){
+                                    final TableRow tableRow = (TableRow) buttonView.getParent();
+                                    hostelId = chargesList.get(table.indexOfChild(tableRow) -1).get("hostelId");
+                                    String roomName = chargesList.get(table.indexOfChild(tableRow) -1).get("r_name");
+                                    String price = null;
+                                    try {
+                                        price = obj.getString("r_total");
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                    Toast.makeText(getApplicationContext(), "roomName"+roomName, Toast.LENGTH_LONG).show();
+                                    // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                                  //  setBooking(roomName,price);
+                                }else {
+
+                                }
+                            }
+                        });
+
+                        table.addView(row);
+                        //imp
+                        HashMap<String, String> listItem = new HashMap<String, String>();
+
+                        listItem.put("name", obj.getString("name"));
+                        listItem.put("r_name", obj.getString("r_name"));
+                        listItem.put("charges", obj.getString("charges"));
+                        listItem.put("availability", obj.getString("r_availability"));
+                        listItem.put("hostelId", obj.getString("hostelId"));
+                        //   listItem.put("mobile", prefManager.getMOBILE_SELECTED());
+
+                        chargesList.add(listItem);
+
+                        hostelLocation = obj.getString("location");
+                        hostelAvailability = obj.getString("availability");
+                        mobileNo = obj.getString("mobile");
+                        person = obj.getString("person");
+                        latitude = Double.parseDouble(obj.getString("latitude"));
+                        longitude = Double.parseDouble(obj.getString("longitude"));
+
+                        roomCount = obj.getString("room_count");
+                        Integer room_count = Integer.parseInt(roomCount);
+
+                        ((TextView) findViewById(R.id.tv_name)).setText(hostelName);
+                        ((TextView) findViewById(R.id.tv_location)).setText(hostelLocation);
+                        ((TextView) findViewById(R.id.tv_room_count)).setText(roomCount);
+                        ((TextView) findViewById(R.id.tv_contact_no)).setText(mobileNo);
+                        ((TextView) findViewById(R.id.tv_person)).setText(person);
+
+                        String picture = ApiConfig.urlHostelsImage + obj.getString("picture");
+                        if (!picture.equals(hostelImage)) {
+                            hostelImage = picture;
+                            ImageLoader imageLoader = AppController.getInstance().getImageLoader();
+                            if (imageLoader == null)
+                                imageLoader = AppController.getInstance().getImageLoader();
+                            CircularNetworkImageView thumbNail = (CircularNetworkImageView) findViewById(R.id.img_thumbnail);
+
+                            thumbNail.setImageUrl(hostelImage, imageLoader);
+                        }
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(tag_string_req, e.getMessage());
+                }
+                // notifying list adapter about data changes
+                // so that it renders the list view with updated data
+
+
+                loading.dismiss();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e("Registration Error: ", error.getMessage());
+                //Dismissing the progress dialog
+                loading.dismiss();
+                //Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+               // params.put("list_charges", "");
+                params.put("id",hostelId);
+
+
+
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
 }

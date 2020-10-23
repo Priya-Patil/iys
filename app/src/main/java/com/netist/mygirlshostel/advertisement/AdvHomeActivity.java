@@ -145,7 +145,7 @@ public class AdvHomeActivity extends AppCompatActivity implements View.OnClickLi
 
                                 SessionHelper session = new SessionHelper(getApplicationContext());
                                 session.setLogin(false);
-                                session.setUserType("");
+                                session.setUserType(null);
                                 session.setUserID("");
                                 Utility.launchActivity(AdvHomeActivity.this, SplashActivity.class,
                                         true);

@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -88,7 +89,6 @@ public class MainActivity extends HomeBaseActivity implements View.OnClickListen
     private SharedPreferences permissionStatus;
     private boolean sentToSettings = false;
 
-        TextView no;
 
     CircleImageView ib_twitter;
     CircleImageView ib_facebook;
@@ -230,42 +230,23 @@ public class MainActivity extends HomeBaseActivity implements View.OnClickListen
 
         if(session.getUserType().equals("admin"))
         {
-            ((LinearLayout)findViewById(R.id.admin_panel)).setVisibility(View.VISIBLE);
-            ((LinearLayout)findViewById(R.id.user_panel)).setVisibility(View.GONE);
+            ((RelativeLayout)findViewById(R.id.admin_panel)).setVisibility(View.VISIBLE);
+            ((RelativeLayout)findViewById(R.id.user_panel)).setVisibility(View.GONE);
         }
         else {
-            ((LinearLayout) findViewById(R.id.admin_panel)).setVisibility(View.GONE);
-            ((LinearLayout) findViewById(R.id.user_panel)).setVisibility(View.VISIBLE);
+            ((RelativeLayout) findViewById(R.id.admin_panel)).setVisibility(View.GONE);
+            ((RelativeLayout) findViewById(R.id.user_panel)).setVisibility(View.VISIBLE);
         }
 
         findViewById(R.id.btn_business).setOnClickListener(this);
-        findViewById(R.id.btn_admin_view).setOnClickListener(this);
-        findViewById(R.id.btn_facility).setOnClickListener(this);
-        findViewById(R.id.btn_notice).setOnClickListener(this);
+         findViewById(R.id.btn_notice).setOnClickListener(this);
         findViewById(R.id.btn_notice2).setOnClickListener(this);
         findViewById(R.id.btn_booking).setOnClickListener(this);
-        findViewById(R.id.btn_view).setOnClickListener(this);
-        findViewById(R.id.btn_facility2).setOnClickListener(this);
         //findViewById(R.id.btn_contact).setOnClickListener(this);
 
         if(!session.getUserType().equals("admin") && !session.isTokenUpdated()) {
             TokenUpdate();
         }
-
-
-        no= (TextView) findViewById(R.id.tv_no);
-
-        no.setOnClickListener(new View.OnClickListener() {
-            @SuppressLint("MissingPermission")
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(Intent.ACTION_CALL);
-                intent.setData(Uri.parse("tel:9665384814"));
-                startActivity(intent);
-
-            }
-        });
 
         getImages();
     }
@@ -279,39 +260,7 @@ public class MainActivity extends HomeBaseActivity implements View.OnClickListen
                 Intent intent = new Intent(getApplicationContext(), BusinessListActivity.class);
                 intent.putExtra("business", "");
                 startActivity(intent);
-            } else if (v.getId() == R.id.btn_admin_view) {
-                Intent intent = new Intent(getApplicationContext(), BusinessListActivity.class);
-                intent.putExtra("views", "");
-                startActivity(intent);
-            } else if (v.getId() == R.id.btn_facility || v.getId() == R.id.btn_facility2) {
-                if (session.getUserType().equals("admin")) {
-                    Intent intent = new Intent(getApplicationContext(), BusinessListActivity.class);
-                    intent.putExtra("facilities", "");
-                    startActivity(intent);
-                } else if (session.getUserType().equals("hostel")) {
-                    preferenceManager.setAREA_SELECTED("details");
-                    Intent intent = new Intent(getApplicationContext(), HostelListActivity.class);
-                    intent.putExtra("hostelId", session.getUserID());
-                    intent.putExtra("facilities", session.getUserID());
-                    startActivity(intent);
-                } else if (session.getUserType().equals("mess")) {
-                    Intent intent = new Intent(getApplicationContext(), MessListActivity.class);
-                    intent.putExtra("facilities", session.getUserID());
-                    startActivity(intent);
-                } else if (session.getUserType().equals("classes")) {
-                    Intent intent = new Intent(getApplicationContext(), ClassesListActivity.class);
-                    intent.putExtra("facilities", session.getUserID());
-                    startActivity(intent);
-                } else if (session.getUserType().equals("library")) {
-                    Intent intent = new Intent(getApplicationContext(), LibraryListActivity.class);
-                    intent.putExtra("facilities", session.getUserID());
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), BusinessListActivity.class);
-                    intent.putExtra("facilities", "");
-                    startActivity(intent);
-                }
-            } else if (v.getId() == R.id.btn_notice || v.getId() == R.id.btn_notice2) {
+            }  else if (v.getId() == R.id.btn_notice || v.getId() == R.id.btn_notice2) {
                 if (session.getUserType().equals("admin")) {
                     Intent intent = new Intent(getApplicationContext(), BusinessListActivity.class);
                     intent.putExtra("notice", "");
@@ -362,42 +311,6 @@ public class MainActivity extends HomeBaseActivity implements View.OnClickListen
                     intent.putExtra("booking", "");
                     startActivity(intent);
                 }
-            } else if (v.getId() == R.id.btn_view) {
-
-                Log.e("role: ", session.getUserType());
-                if (session.getUserType().equals("admin")) {
-                    Intent intent = new Intent(getApplicationContext(), BusinessListActivity.class);
-                    intent.putExtra("views", "");
-                    startActivity(intent);
-                } else if (session.getUserType().equals("hostel")) {
-
-                    preferenceManager.setAREA_SELECTED("details");
-                    Intent intent = new Intent(getApplicationContext(), HostelListActivity.class);
-                    intent.putExtra("hostelId", session.getUserID());
-                    intent.putExtra("views", "views");
-                    startActivity(intent);
-
-              /*  Intent intent = new Intent(getApplicationContext(),ViewListActivity.class);
-                intent.putExtra("hostelId", session.getUserID());
-                startActivity(intent);*/
-                } else if (session.getUserType().equals("mess")) {
-                    Intent intent = new Intent(getApplicationContext(), ViewListActivity.class);
-                    intent.putExtra("messId", session.getUserID());
-                    startActivity(intent);
-                } else if (session.getUserType().equals("classes")) {
-                    Intent intent = new Intent(getApplicationContext(), ViewListActivity.class);
-                    intent.putExtra("classesId", session.getUserID());
-                    startActivity(intent);
-                } else if (session.getUserType().equals("library")) {
-                    Intent intent = new Intent(getApplicationContext(), ViewListActivity.class);
-                    intent.putExtra("libraryId", session.getUserID());
-                    startActivity(intent);
-                } else {
-                    Intent intent = new Intent(getApplicationContext(), BusinessListActivity.class);
-                    intent.putExtra("views", "");
-                    startActivity(intent);
-                }
-
             } else if (v.getId() == R.id.ib_whatsapp) {
                 String url = "https://api.whatsapp.com/send?phone=" + "+91 94237 80567";
                 Intent intentWhatsapp = new Intent(Intent.ACTION_VIEW);

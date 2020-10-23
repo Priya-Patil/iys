@@ -213,7 +213,7 @@ public class HomeBaseActivity extends AppCompatActivity
 
                             SessionHelper session = new SessionHelper(getApplicationContext());
                             session.setLogin(false);
-                            session.setUserType("");
+                            session.setUserType(null);
                             session.setUserID("");
 
 
@@ -618,6 +618,7 @@ public class HomeBaseActivity extends AppCompatActivity
 
             SessionHelper session = new SessionHelper(getApplicationContext());
             session.setLogin(false);
+            session.setUserType(null);
            /* Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
             startActivity(intent);
             this.finish();*/

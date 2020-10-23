@@ -74,7 +74,7 @@
         android:layout_marginLeft="10dp"
         >
            <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="30dp"
                 android:text="Search Area"
                  android:id="@+id/txt_title"

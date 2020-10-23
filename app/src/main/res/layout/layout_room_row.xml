@@ -63,5 +63,34 @@
         android:gravity="center_vertical"
         />
 
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="#fff"/>
+
+
+
+    <TextView
+        android:id="@+id/tv_select"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="14sp"
+        />
+
+    <Switch
+        android:id="@+id/sw_select"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:layout_weight="1"
+        android:textSize="15sp"
+        android:visibility="gone"
+        />
 
 </TableRow >

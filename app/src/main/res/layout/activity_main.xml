@@ -16,26 +16,16 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/layout">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
+            >
 
-            <ImageView
-                android:id="@+id/textView"
-                android:layout_width="130dp"
-                android:layout_height="130dp"
-                android:src="@drawable/iysl"
-                android:layout_marginTop="5dp"
-                android:visibility="gone"/>
-            <LinearLayout
+            <RelativeLayout
                 android:id="@+id/sliderlayout"
                 android:background="@color/colorGrey"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_below="@id/toolbar"
                 >
 
                 <com.daimajia.slider.library.SliderLayout
@@ -50,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center" />
 
-            </LinearLayout>
+            </RelativeLayout>
 
 
 
@@ -64,6 +54,8 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="16dp"
+                android:layout_below="@+id/sliderlayout"
+
                 />
 
             <TextView
@@ -75,58 +67,17 @@
                 android:layout_marginBottom="2dp"
                 android:gravity="center"
                 android:textStyle="bold"
-                android:textColor="@color/colorBlack"/>
+                android:textColor="@color/colorBlack"
+                android:layout_below="@+id/tv_slogan"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:visibility="gone"
-                android:background="@color/colorPrimary"/>
 
-            <LinearLayout
-                android:id="@+id/user_panel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                >
-                <LinearLayout
-                    android:id="@+id/layout_no"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center"
-                    android:layout_marginTop="5dp"
-                    android:visibility="gone">
-                <TextView
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="for Contact"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorAccent"
-                    android:id="@+id/tv_text"
-                    android:layout_marginBottom="5dp"
-                    />
+                    android:layout_below="@+id/tv_username"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/user_panel">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="+919665384814"
-                        android:textAlignment="center"
-                        android:textColor="@color/colorAccent"
-                        android:id="@+id/tv_no"
-                        android:onClick="onClick"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="20dp"/>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center">
 
                     <Button
                         android:id="@+id/btn_booking"
@@ -142,41 +93,6 @@
                         android:background="@drawable/border_primary"/>
 
                     <Button
-                        android:id="@+id/btn_view"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:paddingTop="35dp"
-                        android:drawableTop="@drawable/ic_menu_view"
-                        android:layout_margin="10dp"
-                        android:text="Views"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:background="@drawable/border_primary"/>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <Button
-                        android:id="@+id/btn_facility2"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:paddingTop="35dp"
-                        android:drawableTop="@drawable/ic_menu_facility"
-                        android:layout_margin="10dp"
-                        android:text="Facilities"
-                        android:textColor="@color/colorWhite"
-                        android:textAllCaps="false"
-                        android:background="@drawable/border_primary"/>
-
-
-                    <Button
                         android:id="@+id/btn_notice2"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
@@ -186,70 +102,32 @@
                         android:drawableTop="@drawable/ic_menu_notice"
                         android:text="Notice"
                         android:textColor="@color/colorWhite"
-                        android:textAllCaps="false"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
+                        android:textAllCaps="false"
+                        android:layout_toRightOf="@+id/btn_booking"/>
 
 
-            <LinearLayout
-                android:id="@+id/admin_panel"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+            </RelativeLayout>
 
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_username"
+                    android:layout_centerHorizontal="true"
+                    android:id="@+id/admin_panel"
+                    android:visibility="gone">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center">
 
                     <Button
                         android:id="@+id/btn_business"
                         android:layout_width="120dp"
                         android:layout_height="120dp"
                         android:paddingTop="35dp"
-                        android:drawableTop="@drawable/ic_menu_business"
+                        android:drawableTop="@drawable/ic_menu_booking"
+                        android:paddingBottom="0dp"
                         android:layout_margin="10dp"
-                        android:text="Service Type"
-                        android:textColor="@color/colorWhite"
+                        android:text="Bookings"
                         android:textAllCaps="false"
-                        android:background="@drawable/border_primary"/>
-
-                    <Button
-                        android:id="@+id/btn_admin_view"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:paddingTop="35dp"
-                        android:drawableTop="@drawable/ic_menu_view"
-                        android:layout_margin="10dp"
-                        android:text="Views"
                         android:textColor="@color/colorWhite"
-                        android:textAllCaps="false"
-                        android:background="@drawable/border_primary"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal"
-                    android:gravity="center">
-
-                    <Button
-                        android:id="@+id/btn_facility"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:paddingTop="35dp"
-                        android:drawableTop="@drawable/ic_menu_facility"
-                        android:layout_margin="10dp"
-                        android:text="Facilities"
-                        android:textColor="@color/colorWhite"
-                        android:textAllCaps="false"
                         android:background="@drawable/border_primary"/>
 
                     <Button
@@ -263,14 +141,18 @@
                         android:text="Notice"
                         android:textColor="@color/colorWhite"
                         android:textAllCaps="false"
-                        />
-
-                </LinearLayout>
-
-            </LinearLayout>
+                        android:layout_toRightOf="@+id/btn_business"/>
 
 
-        </LinearLayout>
+            </RelativeLayout>
+
+
+
+
+
+
+
+        </RelativeLayout>
 
     </ScrollView>
 
