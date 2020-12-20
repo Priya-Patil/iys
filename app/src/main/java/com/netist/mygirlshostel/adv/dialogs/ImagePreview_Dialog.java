@@ -1,4 +1,4 @@
-package com.netist.mygirlshostel.advertisement.dialogs;
+package com.netist.mygirlshostel.adv.dialogs;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -10,21 +10,10 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.androidnetworking.error.ANError;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.netist.mygirlshostel.R;
 import com.netist.mygirlshostel.constants.PrefManager;
-
-import java.util.ArrayList;
 
 /**
  * Created by s on 8/20/2018.

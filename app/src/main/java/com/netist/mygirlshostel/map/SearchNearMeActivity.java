@@ -11,10 +11,13 @@ import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,7 +27,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -51,6 +53,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+
 public class SearchNearMeActivity extends FragmentActivity implements OnMapReadyCallback,
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
@@ -64,17 +72,42 @@ public class SearchNearMeActivity extends FragmentActivity implements OnMapReady
     private GoogleApiClient googleApiClient;
 
     LatLng latLng1;
+
+
+    boolean isGPSEnable = false;
+    boolean isNetworkEnable = false;
+    double latitude, longitude;
+    LocationManager locationManager;
+    Location location;
+    ImageView img_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_near_me);
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         prefManager=new PrefManager(SearchNearMeActivity.this);
-        setHostelListUsingLatLong(prefManager.getType(), prefManager.getLati(), prefManager.getLongi(),
-                prefManager.getDistance());
+        img_back=findViewById(R.id.img_back);
+
+
+        if(prefManager.getSearchType().equals("clocation"))
+        {
+            fn_getlocation();
+
+        }
+        else {
+
+            setHostelListUsingLatLong(prefManager.getType(), prefManager.getLati(), prefManager.getLongi(),
+                    prefManager.getDistance());
+        }
+
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
 
     }
 
@@ -164,7 +197,21 @@ public class SearchNearMeActivity extends FragmentActivity implements OnMapReady
     public void onLocationChanged(Location location) {
 
         Log.e( "onLocationChanged: ", String.valueOf(location));
-        Toast.makeText(this, "this", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
 
     }
 
@@ -230,7 +277,7 @@ public class SearchNearMeActivity extends FragmentActivity implements OnMapReady
                             hostelList.add(listItem);
                         }
 
-                        latLng1  = new LatLng(Double.parseDouble(prefManager.getLati()), Double.parseDouble(prefManager.getLongi()));
+                        latLng1  = new LatLng(Double.parseDouble(lati), Double.parseDouble(longi));
 
                         moveToCurrentLocation(latLng1);
                         //  CameraUpdateFactory.zoomIn();
@@ -467,6 +514,69 @@ public class SearchNearMeActivity extends FragmentActivity implements OnMapReady
 
         resultbox.show();
     }
+
+
+    private void fn_getlocation() {
+        locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (!isGPSEnable && !isNetworkEnable) {
+
+        } else {
+
+            if (isNetworkEnable) {
+                location = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    Activity#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for Activity#requestPermissions for more details.
+                        return;
+                    }
+                }
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, this);
+                if (locationManager!=null){
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location!=null){
+
+                        Log.e("latitudeGgl",location.getLatitude()+"");
+                        Log.e("longitudeGgl",location.getLongitude()+"");
+
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+
+                        setHostelListUsingLatLong(prefManager.getType(), String.valueOf(latitude), String.valueOf(longitude),
+                                prefManager.getDistance());
+                    }
+                }
+
+            }
+
+            if (isGPSEnable){
+                location = null;
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,this);
+                if (locationManager!=null){
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (location!=null){
+                        Log.e("latitude_service",location.getLatitude()+"");
+                        Log.e("longitude_service",location.getLongitude()+"");
+                        latitude = location.getLatitude();
+                        longitude = location.getLongitude();
+
+                        setHostelListUsingLatLong(prefManager.getType(), String.valueOf(latitude), String.valueOf(longitude),
+                                prefManager.getDistance());
+                    }
+                }
+            }
+
+        }
+    }
+
 
 
 }

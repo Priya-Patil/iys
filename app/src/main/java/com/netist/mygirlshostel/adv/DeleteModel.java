@@ -1,4 +1,4 @@
-package com.netist.mygirlshostel.advertisement;
+package com.netist.mygirlshostel.adv;
 
 import android.os.Parcel;
 import android.os.Parcelable;

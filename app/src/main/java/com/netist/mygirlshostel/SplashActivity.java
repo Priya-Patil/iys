@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.netist.mygirlshostel.FCM.MyFirebaseInstanceIDService;
-import com.netist.mygirlshostel.advertisement.AdvHomeActivity;
+import com.netist.mygirlshostel.adv.AdvHomeActivity;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 
 public class SplashActivity extends AppCompatActivity {

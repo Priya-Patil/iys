@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
-import com.netist.mygirlshostel.advertisement.AdvertisementListActivity;
+import com.netist.mygirlshostel.adv.AdvertisementListActivity;
 import com.netist.mygirlshostel.classes.ClassesBookingListActivity;
 import com.netist.mygirlshostel.classes.ClassesListActivity;
 import com.netist.mygirlshostel.constants.PrefManager;

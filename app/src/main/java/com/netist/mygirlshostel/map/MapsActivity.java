@@ -61,8 +61,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     int typeIndex = 0;
     String type,htype;
     EditText editText;
-    LocationManager locationManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -334,5 +332,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
         alert.show();
     }
+
+
+
 
 }

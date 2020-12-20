@@ -178,7 +178,7 @@ public class PaymentTezz extends BaseActivity implements View.OnClickListener{
                             TextView text = new TextView(PaymentTezz.this);
                             LinearLayout.LayoutParams params=  new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
                             text.setLayoutParams(params);
-                            text.setText("Name: "+name.get(i)+"\n"+"To make subscription fee payment please save "+phone.get(i)+" in your contact list.");
+                            text.setText("Name: "+name.get(i)+"\n"+"To make rental charge fee payment please save "+phone.get(i)+" in your contact list.");
                             llActivityPaymentTezzDynamicNumbers.addView(text);
                             text.setGravity(Gravity.CENTER);
                             params.setMargins(10,10,10,10);

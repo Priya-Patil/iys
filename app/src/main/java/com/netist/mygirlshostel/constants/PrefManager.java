@@ -49,6 +49,7 @@ public class PrefManager {
     private static final String Longi = "longi";
     private static final String Distance = "dis";
     private static final String Type = "type";
+    private static final String SearchType = "SearchType";
 
 
     public PrefManager(Context context) {
@@ -210,9 +211,18 @@ public class PrefManager {
                         editor.commit();
                     }
 
-          public String getType() {
-                        return pref.getString(Type, null);
+     public String getType() {
+         return pref.getString(Type, null);
+     }
+
+     public void setSearchType(String r) {
+                        editor.putString(SearchType, r);
+                        editor.commit();
                     }
+
+     public String getSearchType() {
+         return pref.getString(SearchType, null);
+     }
 
 
 

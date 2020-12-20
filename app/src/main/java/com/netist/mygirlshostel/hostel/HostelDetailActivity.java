@@ -1,9 +1,13 @@
 package com.netist.mygirlshostel.hostel;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -64,12 +68,14 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
 
     ArrayList<HashMap<String, String>> chargesList;
     TableLayout table;
+    TextView tv_contact_no;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hostel_detail);
 
+        tv_contact_no=findViewById(R.id.tv_contact_no);
         prefManager=new PrefManager(HostelDetailActivity.this);
 
         getSupportActionBar().setHomeButtonEnabled(true);
@@ -102,6 +108,29 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
         btn_edit = (Button)findViewById(R.id.btn_edit_profile);
         btn_delete = (Button)findViewById(R.id.btn_delete_profile);
 
+
+        tv_contact_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setData(Uri.parse("tel:"+tv_contact_no.getText().toString()));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    Activity#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for Activity#requestPermissions for more details.
+                        return;
+                    }
+                }
+                startActivity(callIntent);
+
+            }
+        });
         ((Button) findViewById(R.id.btn_google_map)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -5,8 +5,9 @@ package com.netist.mygirlshostel.web_api_handler;
  */
 
 public class ApiConfig {
-    private static final String domainName = "http://iysonline.club/";
-  //  private static final String domainName = "http://192.168.43.178:9090/mygirlshostel/";
+
+    //private static final String domainName = "http://iysonline.club/";
+    private static final String domainName = "http://iysinfo.com/";
 
     private static final String domainNameAPI = domainName + "mygirlshostel1/";
    // private static final String domainNameAPI = domainName + "api/";

@@ -43,6 +43,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -68,6 +69,8 @@ public class HotelListChargesActivity extends BaseActivity implements View.OnCli
     int index;
     public static String path;
     PrefManager prefManager;
+
+    ArrayList<HashMap<String, String>> hashMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -96,6 +99,20 @@ public class HotelListChargesActivity extends BaseActivity implements View.OnCli
 
             }
         });
+
+     // Log.e( "onCreate: ", String.valueOf(getIntent().getSerializableExtra("chklist")));
+
+        Intent intent = getIntent();
+        hashMap = (ArrayList<HashMap<String, String>>)intent.getSerializableExtra("chklist");
+
+        for (int i=0; i<hashMap.size();i++)
+        {
+            hashMap.get(i).get("name");
+            Log.e("HashMapTest", hashMap.get(i).get("name"));
+
+        }
+
+
     }
 
     private boolean saveExcelFile(Context context, String fileName) {
@@ -296,62 +313,67 @@ public class HotelListChargesActivity extends BaseActivity implements View.OnCli
                     for (int i = 0; i < responseArr.length(); i++) {
 
                         final JSONObject obj = responseArr.getJSONObject(i);
+                        for (int j=0; j<hashMap.size();j++)
+                        {
+                            if(obj.getString("name").equals(hashMap.get(j).get("name")))
+                            {
+                                row = (TableRow) inflater.inflate(R.layout.layout_charges_row, null);
+                                ((TextView) row.findViewById(R.id.tv_name)).setText(obj.getString("name"));
+                                ((TextView) row.findViewById(R.id.tv_sub_name)).setText(obj.getString("r_name"));
+                                ((TextView) row.findViewById(R.id.tv_rate)).setText(obj.getString("r_total"));
+                                ((TextView) row.findViewById(R.id.tv_availability)).setText(obj.getString("r_availability"));
+                                ((TextView) row.findViewById(R.id.tv_select)).setVisibility(View.GONE);
+                                Switch aSwitch =(Switch) row.findViewById(R.id.sw_select);
+                                aSwitch.setVisibility(View.VISIBLE);
 
-                        row = (TableRow) inflater.inflate(R.layout.layout_charges_row, null);
+                                //imp
+                                aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                    @Override
+                                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                        if (isChecked){
+                                            final TableRow tableRow = (TableRow) buttonView.getParent();
+                                            hostelId = chargesList.get(table.indexOfChild(tableRow) -1).get("hostelId");
+                                            String roomName = chargesList.get(table.indexOfChild(tableRow) -1).get("r_name");
+                                            String price = null;
+                                            try {
+                                                price = obj.getString("r_total");
+                                            } catch (Exception e) {
+                                                e.printStackTrace();
+                                            }
+                                            Toast.makeText(getApplicationContext(), "roomName"+roomName, Toast.LENGTH_LONG).show();
+                                            // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
+                                            setBooking(roomName,price);
+                                        }else {
 
-                        ((TextView) row.findViewById(R.id.tv_name)).setText(obj.getString("name"));
-                        ((TextView) row.findViewById(R.id.tv_sub_name)).setText(obj.getString("r_name"));
-                        ((TextView) row.findViewById(R.id.tv_rate)).setText(obj.getString("r_total"));
-                        ((TextView) row.findViewById(R.id.tv_availability)).setText(obj.getString("r_availability"));
-                        ((TextView) row.findViewById(R.id.tv_select)).setVisibility(View.GONE);
-
-                        Switch aSwitch =(Switch) row.findViewById(R.id.sw_select);
-                        aSwitch.setVisibility(View.VISIBLE);
-
-                        //imp
-                        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                            @Override
-                            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                if (isChecked){
-                                    final TableRow tableRow = (TableRow) buttonView.getParent();
-                                    hostelId = chargesList.get(table.indexOfChild(tableRow) -1).get("hostelId");
-                                    String roomName = chargesList.get(table.indexOfChild(tableRow) -1).get("r_name");
-                                    String price = null;
-                                    try {
-                                        price = obj.getString("r_total");
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
+                                        }
                                     }
-                                    Toast.makeText(getApplicationContext(), "roomName"+roomName, Toast.LENGTH_LONG).show();
-                                   // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                                    setBooking(roomName,price);
-                                }else {
+                                });
 
-                                }
+                                table.addView(row);
+                                //imp
+                                HashMap<String, String> listItem = new HashMap<String, String>();
+                                listItem.put("name", obj.getString("name"));
+                                listItem.put("r_name", obj.getString("r_name"));
+                                listItem.put("charges", obj.getString("charges"));
+                                listItem.put("availability", obj.getString("r_availability"));
+                                listItem.put("hostelId", obj.getString("hostelId"));
+                                //   listItem.put("mobile", prefManager.getMOBILE_SELECTED());
+
+                                chargesList.add(listItem);
                             }
-                        });
+                            // end
+                        }
+                           /* hashMap.get(i).get("name");
+                            Log.e("HashMapTest", hashMap.get(j).get("name"));*/
 
-                        table.addView(row);
-                    //imp
-                        HashMap<String, String> listItem = new HashMap<String, String>();
+                        }
 
-                        listItem.put("name", obj.getString("name"));
-                        listItem.put("r_name", obj.getString("r_name"));
-                        listItem.put("charges", obj.getString("charges"));
-                        listItem.put("availability", obj.getString("r_availability"));
-                        listItem.put("hostelId", obj.getString("hostelId"));
-                     //   listItem.put("mobile", prefManager.getMOBILE_SELECTED());
-
-                        chargesList.add(listItem);
-                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.e(tag_string_req, e.getMessage());
                 }
                 // notifying list adapter about data changes
                 // so that it renders the list view with updated data
-
-
                 loading.dismiss();
             }
         }, new Response.ErrorListener() {
@@ -369,9 +391,7 @@ public class HotelListChargesActivity extends BaseActivity implements View.OnCli
             protected Map<String, String> getParams() {
                 // Posting parameters to login url
                 Map<String, String> params = new HashMap<String, String>();
-
                 params.put("list_charges", "");
-
                 return params;
             }
         };

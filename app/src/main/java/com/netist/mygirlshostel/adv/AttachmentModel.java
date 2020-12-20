@@ -1,26 +1,12 @@
-package com.netist.mygirlshostel.advertisement.model;
+package com.netist.mygirlshostel.adv;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class SliderImageModel implements Parcelable {
+public class AttachmentModel implements Parcelable {
     int id;
     String title;
     String details;
-    String images;
-    int userid;
-    String expirydate;
-    int isapprove;
-    double amount;
-    int isactive;
-    String created;
-    int createdby;
-    String modified;
-    int modifiedby;
-    String name;
-    String mobile;
-    String address;
-
 
     public int getId() {
         return id;
@@ -34,13 +20,9 @@ public class SliderImageModel implements Parcelable {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     @Override
     public String toString() {
-        return "SliderImageModel{" +
+        return "AttachmentModel{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
                 ", details='" + details + '\'' +
@@ -58,6 +40,10 @@ public class SliderImageModel implements Parcelable {
                 ", mobile='" + mobile + '\'' +
                 ", address='" + address + '\'' +
                 '}';
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getDetails() {
@@ -172,11 +158,44 @@ public class SliderImageModel implements Parcelable {
         this.address = address;
     }
 
-    public static Creator<SliderImageModel> getCREATOR() {
+    public static Creator<AttachmentModel> getCREATOR() {
         return CREATOR;
     }
 
-    protected SliderImageModel(Parcel in) {
+    public AttachmentModel(int id, String title, String details, String images, int userid, String expirydate, int isapprove, double amount, int isactive, String created, int createdby, String modified, int modifiedby, String name, String mobile, String address) {
+        this.id = id;
+        this.title = title;
+        this.details = details;
+        this.images = images;
+        this.userid = userid;
+        this.expirydate = expirydate;
+        this.isapprove = isapprove;
+        this.amount = amount;
+        this.isactive = isactive;
+        this.created = created;
+        this.createdby = createdby;
+        this.modified = modified;
+        this.modifiedby = modifiedby;
+        this.name = name;
+        this.mobile = mobile;
+        this.address = address;
+    }
+
+    String images;
+    int userid;
+    String expirydate;
+    int isapprove;
+    double amount;
+    int isactive;
+    String created;
+    int createdby;
+    String modified;
+    int modifiedby;
+    String name;
+    String mobile;
+    String address;
+
+    protected AttachmentModel(Parcel in) {
         id = in.readInt();
         title = in.readString();
         details = in.readString();
@@ -195,36 +214,17 @@ public class SliderImageModel implements Parcelable {
         address = in.readString();
     }
 
-    public static final Creator<SliderImageModel> CREATOR = new Creator<SliderImageModel>() {
+    public static final Creator<AttachmentModel> CREATOR = new Creator<AttachmentModel>() {
         @Override
-        public SliderImageModel createFromParcel(Parcel in) {
-            return new SliderImageModel(in);
+        public AttachmentModel createFromParcel(Parcel in) {
+            return new AttachmentModel(in);
         }
 
         @Override
-        public SliderImageModel[] newArray(int size) {
-            return new SliderImageModel[size];
+        public AttachmentModel[] newArray(int size) {
+            return new AttachmentModel[size];
         }
     };
-
-    public SliderImageModel(int id, String title, String details, String images, int userid, String expirydate, int isapprove, double amount, int isactive, String created, int createdby, String modified, int modifiedby, String name, String mobile, String address) {
-        this.id = id;
-        this.title = title;
-        this.details = details;
-        this.images = images;
-        this.userid = userid;
-        this.expirydate = expirydate;
-        this.isapprove = isapprove;
-        this.amount = amount;
-        this.isactive = isactive;
-        this.created = created;
-        this.createdby = createdby;
-        this.modified = modified;
-        this.modifiedby = modifiedby;
-        this.name = name;
-        this.mobile = mobile;
-        this.address = address;
-    }
 
     @Override
     public int describeContents() {

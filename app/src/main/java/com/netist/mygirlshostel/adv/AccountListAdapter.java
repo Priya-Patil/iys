@@ -1,10 +1,9 @@
-package com.netist.mygirlshostel.advertisement;
+package com.netist.mygirlshostel.adv;
 
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
-
 import androidx.recyclerview.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,11 +14,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
-
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.netist.mygirlshostel.R;
@@ -28,13 +25,12 @@ import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;
 import com.squareup.picasso.Picasso;
 
-
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
 
-public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAdapter.MyViewHolder> {
+public class AccountListAdapter extends RecyclerView.Adapter<AccountListAdapter.MyViewHolder> {
 
     private LayoutInflater inflater;
     private ArrayList<AttachmentModel> attachmentModels;
@@ -44,7 +40,7 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
     ProgressDialog progressDialog;
     private SessionHelper session;
 
-    public AttachmentListAdapter(Activity activity, ArrayList<AttachmentModel> attachmentModels, ItemClickListener itemClickListener){
+    public AccountListAdapter(Activity activity, ArrayList<AttachmentModel> attachmentModels, ItemClickListener itemClickListener){
 
         this.activity = activity;
         this.attachmentModels =   attachmentModels;
@@ -57,7 +53,7 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(activity).inflate(R.layout.item_homework_list, null, false);
+        View view = LayoutInflater.from(activity).inflate(R.layout.item_account_list, null, false);
         RecyclerView.LayoutParams lp = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         view.setLayoutParams(lp);
 
@@ -74,9 +70,11 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
 
         AttachmentModel item=attachmentModels.get(position);
 
-        holder.tv_topicName.setText(item.getTitle());
-        holder.tv_details.setText(item.getDetails());
-        holder.tv_date.setText(item.getExpirydate());
+        holder.tv_topicName.setText(item.getName());
+        holder.tv_details.setText(item.getTitle());
+        holder.tv_date.setText("Date: "+item.getCreated());
+        holder.tv_amount.setText("Amount: "+item.getAmount());
+        holder.tv_mobile.setText("Mobile: "+item.getMobile());
 
         String profile_path;
         Log.e( "onBindViewHolder: ", item.toString());
@@ -108,27 +106,11 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
                 if(item.getIsapprove()==1)
                 {
                     holder.tv_approve.setText("Approved");
-
-                    Toast.makeText(activity, "nnnn", Toast.LENGTH_SHORT).show();
-                    if(session.getUserType().equals("admin"))
-                    {
-                        holder.tv_approve.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View v) {
-                                Log.e("Attachment", " "+item.getId());
-                                //Change parameter
-                                //String imgpath,String Title ,String Details , int Userid,String Expirydate
-                                Log.e("AttachAdapter "," "+item.getId()+" "+profile_path+" "+item.getTitle()+" "+
-                                        item.getDetails()+" "+item.getUserid()+" "+item.getExpirydate());
-                                dialogForCancelSubImage(item.getId(),item.getImages(),item.getTitle(),
-                                        item.getDetails(),item.getUserid(),item.getExpirydate(),
-                                        0, String.valueOf(item.getAmount()));
-                            }
-                        });
-                    }
                 }
                 else
                 {
+
+
                     if(session.getUserType().equals("admin"))
                     {
                         holder.tv_approve.setOnClickListener(new View.OnClickListener() {
@@ -144,6 +126,7 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
                             }
                         });
                     }
+
 
                 }
 
@@ -169,7 +152,7 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
 
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView tv_details,tv_topicName,tv_date, tv_approve;
+        TextView tv_details,tv_topicName,tv_date, tv_approve, tv_amount, tv_mobile;
         ImageView img_title,iv_delete,iv_edit;
 
         public MyViewHolder(View itemView) {
@@ -182,6 +165,8 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
             iv_edit =  itemView.findViewById(R.id.iv_edit);
             iv_delete =  itemView.findViewById(R.id.iv_delete);
             tv_approve =  itemView.findViewById(R.id.tv_approve);
+            tv_amount =  itemView.findViewById(R.id.tv_amount);
+            tv_mobile =  itemView.findViewById(R.id.tv_mobile);
 
             itemView.setOnClickListener(this); // bind the listener
         }
@@ -320,101 +305,6 @@ public class AttachmentListAdapter extends RecyclerView.Adapter<AttachmentListAd
                             .addMultipartParameter("Userid", String.valueOf(Userid))
                             .addMultipartParameter("Expirydate", Expirydate)
                             .addMultipartParameter("Isapprove", "1")
-                            .addMultipartParameter("Amount", Amount)
-                            .addMultipartParameter("LogedinUserId", "1")
-                            .setTag("uploadTest")
-                            .setPriority(Priority.HIGH)
-                            .build()
-                            .setUploadProgressListener(new UploadProgressListener() {
-                                @Override
-                                public void onProgress(long bytesUploaded, long totalBytes) {
-                                    resultbox.cancel();
-                                    Log.e("adapter1", "uploadImage: totalBytes: " + totalBytes);
-                                    Log.e("adapter1", "uploadImage: bytesUploaded: " + bytesUploaded);
-                                    progressDialog.setMessage("Deleting File, Please wait...");
-                                    progressDialog.show();
-                                    progressDialog.setCancelable(false);
-                                }
-                            })
-                            .getAsJSONObject(new JSONObjectRequestListener() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    progressDialog.hide();
-                                    Log.e("adapter1", "FileonRes: " + response.toString());
-                                    //Toast.makeText(activity,"Deleted Succesfully ",Toast.LENGTH_LONG).show();
-                                    //Intent intent= new Intent(activity,AdvertisementListActivity.class);
-                                    //startActivity(intent);
-                                    //rl_img_delete.setVisibility(View.GONE);
-                                    resultbox.cancel();
-                                    activity.finish();
-                                    activity.overridePendingTransition( 0, 0);
-                                    activity.startActivity(activity.getIntent());
-                                    activity.overridePendingTransition( 0, 0);
-                                }
-
-                                @Override
-                                public void onError(ANError error) {
-                                    resultbox.cancel();
-                                    Log.e("adapter1", "FileonError: ", error);
-                                    progressDialog.hide();
-                                }
-                            });
-                } else {
-                    resultbox.cancel();
-                    Toast.makeText(activity, "No Internet Connection",Toast.LENGTH_SHORT).show();                }
-            }
-
-            ;
-
-            /**************************************/
-        });
-
-        btn_cancel.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                resultbox.cancel();
-            }
-        });
-
-        resultbox.show();
-    }
-
-
-    private void dialogForCancelSubImage(int id,String imgpath,String Title ,String Details, int Userid,
-                                       String Expirydate, int Isapprove, String Amount ) {
-        // this.correct = correct;
-        final Dialog resultbox = new Dialog(activity);
-        resultbox.setContentView(R.layout.delete_subject_dialog);
-        // resultbox.setCanceledOnTouchOutside(false);
-        Button btn_finish = (Button) resultbox.findViewById(R.id.btn_finish);
-        Button btn_cancel = (Button) resultbox.findViewById(R.id.btn_resume);
-        btn_cancel.setVisibility(View.GONE);
-        btn_finish.setText("Cancel Subscription");
-
-        TextView text_title =  resultbox.findViewById(R.id.text_title);
-        text_title.setText(" Are you sure you want to Cancel this Subscription  ? ");
-        btn_finish.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                if (Utility.isNetworkAvailable(activity)) {
-
-                    /**********Delete Code****************/
-
-                    AndroidNetworking.upload("http://iysonline.club/iys/api/processes/images.php/")
-                            // .addFileToUpload("", "certificate") //Adding file
-                            .addMultipartParameter("type", "1")
-                            .addMultipartParameter("Action", "1")
-                            .addMultipartParameter("ImagesId", String.valueOf(id))
-                            .addMultipartParameter("Title", Title)
-                            .addMultipartParameter("Details",Details)
-                            .addMultipartParameter("images",imgpath)
-                            .addMultipartParameter("Userid", String.valueOf(Userid))
-                            .addMultipartParameter("Expirydate", Expirydate)
-                            .addMultipartParameter("Isapprove", String.valueOf(Isapprove))
                             .addMultipartParameter("Amount", Amount)
                             .addMultipartParameter("LogedinUserId", "1")
                             .setTag("uploadTest")

@@ -47,6 +47,17 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Tap On Image"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:id="@+id/tv_slogan1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_below="@+id/sliderlayout"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="@string/slogan"
                 android:textAlignment="center"
                 android:textColor="@color/colorBlack"
@@ -54,9 +65,7 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:textSize="16dp"
-                android:layout_below="@+id/sliderlayout"
-
-                />
+                android:layout_below="@+id/tv_slogan1"/>
 
             <TextView
                 android:layout_width="match_parent"

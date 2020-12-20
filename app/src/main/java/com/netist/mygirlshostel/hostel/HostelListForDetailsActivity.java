@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -72,7 +73,7 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
     public boolean service;
 
     PrefManager prefManager;
-    Button btn_search, btn_map, btn_seekbar;
+    Button btn_search, btn_map;
     private ArrayList<HashMap<String, String>> vehicleList;
     EditText inputSearch;
 
@@ -85,7 +86,8 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
     TextView perText;
 
     ImageView iv_back;
-    RelativeLayout search, seek_barlayout;
+    LinearLayout seek_barlayout;
+    RelativeLayout search;
 
 
     Spinner spinner1;
@@ -105,10 +107,8 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
         prefManager = new PrefManager(HostelListForDetailsActivity.this);
         listView = (ListView) findViewById(R.id.lv_hostelList);
         btn_search = findViewById(R.id.btn_search);
-        btn_seekbar = findViewById(R.id.btn_seekbar);
         btn_map = findViewById(R.id.btn_map);
         btn_search.setOnClickListener(this);
-        btn_seekbar.setOnClickListener(this);
         btn_map.setOnClickListener(this);
         inputSearch = findViewById(R.id.inputSearch);
         btn_hostel_type = findViewById(R.id.btn_hostel_type);
@@ -128,8 +128,15 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
             seek_barlayout.setVisibility(View.GONE);
         }
 
-        dialog();
+        if(prefManager.getLati()==null)
+        {
+            dialog();
+        }
+        else {
 
+            setHostelListUsingLatLong(prefManager.getType(), prefManager.getLati(), prefManager.getLongi(), prefManager.getDistance());
+
+        }
 
         Bundle bundle = getIntent().getExtras();
 
@@ -155,7 +162,7 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
             public void onClick(View v) {
                /* Intent intent= new Intent(getApplicationContext(), HostelEditorActivity.class);
                 startActivity(intent);*/
-                Utility.launchActivity(HostelListForDetailsActivity.this, HostelEditorActivity.class, true);
+                Utility.launchActivity(HostelListForDetailsActivity.this, AddHostelActivity.class, false);
 
             }
         });
@@ -279,7 +286,7 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
 
     }
 
-    private void setHostelList(String type) {
+    private void setHostelList(String type, String offset, String limit) {
         tag_string_req = "HostelListRequest";
 
         hostelList = new ArrayList<HashMap<String, String>>();
@@ -335,7 +342,7 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
                     listView.setAdapter(null);
                     //pp Toast.makeText(HostelListActivity.this, "Hostels Not Available...!", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(HostelListForDetailsActivity.this, "Hostels Not Available.!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HostelListForDetailsActivity.this, "Hostels Not Available..!", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -361,12 +368,17 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
                 if (prefManager.getAREA_SELECTED().equals("area1")) {
                     params.put("id", "0");
                     params.put("type", type);
+                    params.put("offset", offset);
+                    params.put("limit", limit);
 
                     //  params.put("id",session.getUserID());
                 } else if (prefManager.getAREA_SELECTED().equals("details")) {
                     params.put("id", "1");
                     params.put("type", type);
                     params.put("mobile", prefManager.getMOBILE_SELECTED());
+                    params.put("offset", offset);
+                    params.put("limit", limit);
+
                 }
 
                /* if (!session.getUserNearby())
@@ -821,6 +833,7 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
 
         };
         final AlertDialog.Builder alert = new AlertDialog.Builder(HostelListForDetailsActivity.this);
+        alert.setCancelable(false);
         alert.setSingleChoiceItems(typeList, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -836,19 +849,128 @@ public class HostelListForDetailsActivity extends BaseActivity implements View.O
                     type="1";
                     prefManager.setType("1");
                     Toast.makeText(HostelListForDetailsActivity.this, "girls hostel", Toast.LENGTH_SHORT).show();
-                    setHostelList(type);
+                    setHostelList(type, "0","100");
                 }
                 else
                 {
                     type="2";
                     prefManager.setType("2");
                     Toast.makeText(HostelListForDetailsActivity.this, "boys hostel", Toast.LENGTH_SHORT).show();
-                    setHostelList(type);
+                    setHostelList(type,"0","100");
                 }
             }
         });
         alert.show();
     }
+
+    private void setHostelListUsingLatLong(String type, String lati, String longi, String range) {
+        tag_string_req = "HostelListRequest";
+
+        hostelList = new ArrayList<HashMap<String, String>>();
+
+        final ProgressDialog loading = ProgressDialog.show(this, null, "Loading List, Please wait...", false, false);
+
+        StringRequest strReq = new StringRequest(Request.Method.POST,
+                ApiConfig.urlHostelList, new Response.Listener<String>() {
+
+            @Override
+            public void onResponse(String response) {
+                Log.e("Response StringYessss", response);
+                //Disimissing the progress dialog
+                loading.dismiss();
+                try {
+                    JSONArray responseArr = new JSONArray(response);
+                    hostelList.clear();
+                    // Parsing json
+                    for (int i = 0; i < responseArr.length(); i++) {
+
+                        JSONObject obj = responseArr.getJSONObject(i);
+
+                        HashMap<String, String> listItem = new HashMap<String, String>();
+
+                        // Fields : hostelId, name, picture, location, room_count, total, availability, occupancy
+
+                        listItem.put("hostelId", obj.getString("hostelId"));
+                        listItem.put("name", obj.getString("name"));
+                        listItem.put("picture", ApiConfig.urlHostelsImage + obj.getString("picture"));
+                        listItem.put("location", obj.getString("location"));
+                        listItem.put("room_count", obj.getString("room_count"));
+                        listItem.put("total", obj.getString("total"));
+                        listItem.put("availability", obj.getString("availability"));
+                        listItem.put("occupancy", obj.getString("occupancy"));
+                        listItem.put("chargesDateTime", obj.getString("chargesDateTime"));
+                        listItem.put("charges", obj.getString("charges"));
+                        listItem.put("latitude", obj.getString("latitude"));
+                        listItem.put("longitude", obj.getString("longitude"));
+
+                        hostelList.add(listItem);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.e(tag_string_req, e.getMessage());
+                }
+                // notifying list adapter about data changes
+                // so that it renders the list view with updated data
+
+                if (hostelList.size() > 0) {
+                    HostelListAdapter hostelListAdapter = new HostelListAdapter(HostelListForDetailsActivity.this, hostelList);
+                    listView.setAdapter(hostelListAdapter);
+                } else {
+                    listView.setAdapter(null);
+                    //pp Toast.makeText(HostelListActivity.this, "Hostels Not Available...!", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(HostelListForDetailsActivity.this, "Hostels Not Available, please go to search setting menu and add location points proper..!", Toast.LENGTH_SHORT).show();
+
+                }
+
+                loading.dismiss();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                //Log.e("Registration Error: ",  error.getMessage());
+                //Dismissing the progress dialog
+                loading.dismiss();
+                Toast.makeText(getApplicationContext(), "onErrorResponse" + error, Toast.LENGTH_LONG).show();
+            }
+        }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                // Posting parameters to login url
+                Map<String, String> params = new HashMap<String, String>();
+
+
+                if (prefManager.getAREA_SELECTED().equals("area1")) {
+                    params.put("id", "3");
+                    params.put("type", type);
+                    params.put("lati", lati);
+                    params.put("longi", longi);
+                    params.put("range", range);
+
+                    //  params.put("id",session.getUserID());
+                } else if (prefManager.getAREA_SELECTED().equals("details")) {
+                    params.put("id", "4");
+                    params.put("type", type);
+                    params.put("mobile", prefManager.getMOBILE_SELECTED());
+                    params.put("lati", lati);
+                    params.put("longi", longi);
+                    params.put("range", range);
+
+                }
+
+
+                Log.e("Register Params: ", params.toString());
+
+                return params;
+            }
+        };
+        // Adding request to request queue
+        AppController.getInstance().addToRequestQueue(strReq, tag_string_req);
+    }
+
+
 
 
 }

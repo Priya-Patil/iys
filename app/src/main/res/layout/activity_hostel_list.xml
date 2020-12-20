@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layout_margin="5dp"
     tools:context="com.netist.mygirlshostel.hostel.HostelListActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -66,32 +67,37 @@
             />
     </RelativeLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="3dp"
         android:id="@+id/seek_barlayout"
-        android:layout_marginLeft="10dp"
-        >
-           <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:text="Search Area"
-                 android:id="@+id/txt_title"
-               android:layout_centerVertical="true"/>
+        android:weightSum="2">
 
         <Button
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:id="@+id/btn_seekbar"
-            android:background="@drawable/location"
-            android:layout_alignParentRight="true"
+            android:text="Current Location"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/txt_clocation"
+            android:background="@color/colorPrimary"
+            android:visibility="visible"
+            android:layout_weight="1"
             android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_centerVertical="true"
-            android:layout_margin="10dp"
             />
-    </RelativeLayout>
+
+        <Button
+            android:text="Search Area"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:id="@+id/txt_area"
+            android:background="@color/colorPrimary"
+            android:visibility="visible"
+            android:layout_weight="1"
+            android:textColor="@color/colorWhite"
+            android:layout_marginLeft="5dp"
+            />
+
+    </LinearLayout>
 
     <Button
         android:text="map"
@@ -112,6 +118,7 @@
         android:layout_alignParentRight="true"
         android:visibility="visible"
         android:textColor="@color/colorWhite"
+        android:layout_marginTop="5dp"
         />
 
     <Spinner

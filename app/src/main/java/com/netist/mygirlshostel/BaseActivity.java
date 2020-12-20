@@ -12,8 +12,9 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
-import com.netist.mygirlshostel.advertisement.AdvertisementListActivity;
+import com.netist.mygirlshostel.adv.AdvertisementListActivity;
 import com.netist.mygirlshostel.classes.ClassesBookingListActivity;
 import com.netist.mygirlshostel.classes.ClassesListActivity;
 import com.netist.mygirlshostel.constants.PrefManager;
@@ -93,7 +94,7 @@ public class BaseActivity extends AppCompatActivity
             //  navigationView.getMenu().add("Subscription Fee").setIcon(R.drawable.ic_menu_chat);
             navigationView.getMenu().add("Rental").setIcon(R.drawable.ic_menu_chat);
 
-           // navigationView.getMenu().add("Share").setIcon(R.drawable.ic_menu_share);
+            // navigationView.getMenu().add("Share").setIcon(R.drawable.ic_menu_share);
 
             navigationView.getMenu().add("Logout").setIcon(R.drawable.ic_menu_logout);
         }
@@ -120,19 +121,20 @@ public class BaseActivity extends AppCompatActivity
             navigationView.getMenu().add("Payment History").setIcon(R.drawable.ic_menu_chat);
 
 
-          //  navigationView.getMenu().add("Share").setIcon(R.drawable.ic_menu_share);
+            //  navigationView.getMenu().add("Share").setIcon(R.drawable.ic_menu_share);
 
             navigationView.getMenu().add("Logout").setIcon(R.drawable.ic_menu_logout);
         }
         else if(session.getUserType().equals("admin")) {
 
-            navigationView.getMenu().add("Search Setting").setIcon(R.drawable.ic_menu_settings);
+            navigationView.getMenu().add("Search Setting").setIcon(R.drawable.ic_menu_settings).setVisible(false);
+            navigationView.getMenu().add("Accounts").setIcon(R.drawable.ic_menu_settings);
 
             navigationView.getMenu().add("Service Type").setIcon(R.drawable.ic_menu_business);
 
             navigationView.getMenu().add("Subscription Charges").setIcon(R.drawable.ic_menu_payment);
 
-          //  navigationView.getMenu().add("Accounts").setIcon(R.drawable.ic_menu_account);
+            //  navigationView.getMenu().add("Accounts").setIcon(R.drawable.ic_menu_account);
 
             //navigationView.getMenu().add("My Bookings").setIcon(R.drawable.ic_menu_booking);
 
@@ -151,7 +153,7 @@ public class BaseActivity extends AppCompatActivity
 
             //  navigationView.getMenu().add("Subscription Fee").setIcon(R.drawable.ic_menu_chat);
 
-         //   navigationView.getMenu().add("Share").setIcon(R.drawable.ic_menu_share);
+            //   navigationView.getMenu().add("Share").setIcon(R.drawable.ic_menu_share);
 
             navigationView.getMenu().add("Logout").setIcon(R.drawable.ic_menu_logout);
         }
@@ -669,7 +671,7 @@ public class BaseActivity extends AppCompatActivity
                 case "hostel":
                 {
                     preferenceManager.setAREA_SELECTED("details");
-                     Intent intent = new Intent(getApplicationContext(),HostelListActivity.class);
+                    Intent intent = new Intent(getApplicationContext(),HostelListActivity.class);
                     intent.putExtra("charges", "");
                     startActivity(intent);
                 }
@@ -760,6 +762,11 @@ public class BaseActivity extends AppCompatActivity
             //   startActivity(new Intent(getApplicationContext(), EditHostelRoom.class));
 
             //startActivity(new Intent(getApplicationContext(), demo.class));
+        } else if (title.equals("Accounts"))
+        {
+            //  startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+            Toast.makeText(this, "coming soon...", Toast.LENGTH_SHORT).show();
+
         }
 
 

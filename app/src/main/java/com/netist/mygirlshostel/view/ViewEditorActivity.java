@@ -402,16 +402,16 @@ public class ViewEditorActivity extends AppCompatActivity implements  View.OnCli
                         JSONObject jObj = new JSONObject(response);
                         boolean error = jObj.getBoolean("error");
 
-                        Toast.makeText(getApplicationContext(), jObj.getString("msg"), Toast.LENGTH_LONG).show();
+                       /* Toast.makeText(getApplicationContext(), jObj.getString("msg"), Toast.LENGTH_LONG).show();
                         // Check for error node in json
                         if (!error) {
 
                             if (jObj.has("imgName"))
                                 imgName = jObj.getString("imgName");
                             sendMultiplePush();
-
+*/
                             ViewEditorActivity.this.finish();
-                        }
+                      //  }
                     } catch (JSONException e) {
                         //Dismissing the progress dialog
                         loading.dismiss();

@@ -1,5 +1,6 @@
 package com.netist.mygirlshostel.hostel;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,9 +17,12 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -34,6 +38,7 @@ import com.netist.mygirlshostel.PaymentTezz;
 import com.netist.mygirlshostel.facilities.FacilityListActivity;
 import com.netist.mygirlshostel.NoticeListActivity;
 import com.netist.mygirlshostel.R;
+import com.netist.mygirlshostel.map.SearchNearMeActivity;
 import com.netist.mygirlshostel.payment.PaymentHistoryActivity;
 import com.netist.mygirlshostel.utils.Utility;
 import com.netist.mygirlshostel.view.ViewListActivity;
@@ -68,7 +73,7 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
     public boolean service;
 
     PrefManager prefManager;
-    Button btn_search, btn_map, btn_seekbar, btn_hostel_type;
+    Button btn_search, btn_map, btn_hostel_type;
     private ArrayList<HashMap<String, String>> vehicleList;
     EditText inputSearch;
 
@@ -81,11 +86,13 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
     ImageView iv_back;
 
     Button btn_add_hostel;
-    RelativeLayout search, seek_barlayout;
+    RelativeLayout search;
+            LinearLayout seek_barlayout;
     String type;
     Spinner spinner1;
     int typeIndex = 0;
     String htype;
+    TextView txt_clocation, txt_area;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,11 +104,10 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
         prefManager = new PrefManager(HostelListActivity.this);
         listView = (ListView) findViewById(R.id.lv_hostelList);
         btn_search = findViewById(R.id.btn_search);
-        btn_seekbar = findViewById(R.id.btn_seekbar);
+
         btn_map = findViewById(R.id.btn_map);
         btn_hostel_type = findViewById(R.id.btn_hostel_type);
         btn_search.setOnClickListener(this);
-        btn_seekbar.setOnClickListener(this);
         btn_map.setOnClickListener(this);
         btn_hostel_type.setOnClickListener(this);
         inputSearch = findViewById(R.id.inputSearch);
@@ -109,12 +115,15 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
         btn_add_hostel = findViewById(R.id.btn_add_hostel);
         search = findViewById(R.id.search);
         seek_barlayout = findViewById(R.id.seek_barlayout);
+        txt_area = findViewById(R.id.txt_area);
+        txt_clocation = findViewById(R.id.txt_clocation);
         seek_barlayout.setOnClickListener(this);
+        txt_area.setOnClickListener(this);
+        txt_clocation.setOnClickListener(this);
         session = new SessionHelper(this);
         setTitle("Hostel List");
 
         Log.e( "chkrole: ", session.getUserType());
-
 
         if(prefManager.getLati()==null)
         {
@@ -170,8 +179,19 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
         findViewById(R.id.btn_list_charges).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), HotelListChargesActivity.class);
+
+/*
+                Bundle bundle1=new Bundle();
+                bundle1.putSerializable("chklist", hostelList);
+                Utility.launchActivity(HostelListActivity.this,HotelListChargesActivity.class, false,bundle1);
+*/
+
+                Intent intent = new Intent(HostelListActivity.this, HotelListChargesActivity.class);
+                intent.putExtra("chklist", hostelList);
                 startActivity(intent);
+
+                /*Intent intent = new Intent(getApplicationContext(), HotelListChargesActivity.class);
+                startActivity(intent);*/
             }
         });
 
@@ -598,9 +618,14 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
 
                 break;
 
-            case R.id.btn_seekbar:
-             //   fn_getlocation();
+            case R.id.txt_area:
+                prefManager.setSearchType("searcharea");
                 Utility.launchActivity(HostelListActivity.this, MapsActivity.class, false);
+                break;
+
+            case R.id.txt_clocation:
+                prefManager.setSearchType("clocation");
+                dialogForSetLimit();
                 break;
             case R.id.btn_map:
                 setAllForSearchForUser(inputSearch.getText().toString());
@@ -922,6 +947,7 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
 
         };
         final AlertDialog.Builder alert = new AlertDialog.Builder(HostelListActivity.this);
+        alert.setCancelable(false);
         alert.setSingleChoiceItems(typeList, 0, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -950,5 +976,65 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
         });
         alert.show();
     }
+
+
+    private void dialogForSetLimit( ) {
+        // this.correct = correct;
+        final Dialog resultbox = new Dialog(this);
+        resultbox.setContentView(R.layout.dialog_set_limit);
+        resultbox.setCanceledOnTouchOutside(false);
+        SeekBar seek_bar = resultbox.findViewById(R.id.seek_bar);
+        Button btn_finish =  resultbox.findViewById(R.id.btn_finish);
+        Button btn_cancel =  resultbox.findViewById(R.id.btn_resume);
+        TextView  perText = resultbox.findViewById(R.id.percent_text);
+        //   perText.setText(Integer.toString(session.getUserDistance()) +"km");
+
+        perText.setText("20" +"km");
+        prefManager.setDistance("20");
+
+        seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                prefManager.setDistance(String.valueOf(progress));
+                perText.setText(Integer.toString(progress) +"km");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        btn_finish.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Utility.launchActivity(HostelListActivity.this, SearchNearMeActivity.class, false);
+
+            }
+
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                onBackPressed();
+                //resultbox.cancel();
+            }
+        });
+
+        resultbox.show();
+    }
+
 
 }

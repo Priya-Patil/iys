@@ -7,8 +7,8 @@ android {
         applicationId "com.iys.inyourservice"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 6
-        versionName "1.6"
+        versionCode 11
+        versionName "1.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

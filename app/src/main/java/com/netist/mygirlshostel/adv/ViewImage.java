@@ -1,4 +1,4 @@
-package com.netist.mygirlshostel.advertisement;
+package com.netist.mygirlshostel.adv;
 
 import android.app.Activity;
 import android.app.Dialog;

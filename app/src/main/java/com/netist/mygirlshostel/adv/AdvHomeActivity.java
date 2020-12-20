@@ -1,4 +1,4 @@
-package com.netist.mygirlshostel.advertisement;
+package com.netist.mygirlshostel.adv;
 
 import android.Manifest;
 import android.app.AlertDialog;
@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.Camera;
 import android.net.Uri;
 import android.os.Build;
 import androidx.appcompat.app.AppCompatActivity;
@@ -31,11 +30,10 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.netist.mygirlshostel.HomeBaseActivity;
 import com.netist.mygirlshostel.R;
 import com.netist.mygirlshostel.SplashActivity;
 import com.netist.mygirlshostel.WelcomeActivity;
-import com.netist.mygirlshostel.advertisement.model.SliderImageModel;
+import com.netist.mygirlshostel.adv.model.SliderImageModel;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;
 

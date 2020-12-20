@@ -47,7 +47,6 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="@dimen/toolbarText" />
 
-
                 <ImageView
                     android:id="@+id/img_search"
                     android:layout_width="30dp"
@@ -57,9 +56,7 @@
                     android:layout_marginRight="@dimen/padding_10"
                     android:background="@drawable/ic_search"
                     android:layout_alignParentRight="true"
-                    android:visibility="visible"/>
-
-
+                    android:visibility="gone"/>
             </RelativeLayout>
 
         </androidx.appcompat.widget.Toolbar>

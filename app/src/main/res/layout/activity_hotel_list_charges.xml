@@ -41,6 +41,7 @@
         android:textColor="#fff"
         android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/admin_panel"/>
+        android:layout_below="@+id/admin_panel"
+        android:visibility="gone"/>
 
 </RelativeLayout>

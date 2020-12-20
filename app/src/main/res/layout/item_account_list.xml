@@ -95,7 +95,7 @@
                                 android:padding="5dp"
                                 android:layout_toLeftOf="@+id/iv_edit"
                                 android:layout_centerVertical="true"
-                                android:text="Approve"
+                                android:text="To Approve"
                                 />
 
                         </RelativeLayout>

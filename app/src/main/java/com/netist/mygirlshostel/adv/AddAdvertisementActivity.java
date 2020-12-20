@@ -1,4 +1,4 @@
-package com.netist.mygirlshostel.advertisement;
+package com.netist.mygirlshostel.adv;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -31,7 +31,7 @@ import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.netist.mygirlshostel.R;
-import com.netist.mygirlshostel.advertisement.dialogs.ImagePreview_Dialog;
+import com.netist.mygirlshostel.adv.dialogs.ImagePreview_Dialog;
 import com.netist.mygirlshostel.payment.PayMentGateWayForAdv;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;

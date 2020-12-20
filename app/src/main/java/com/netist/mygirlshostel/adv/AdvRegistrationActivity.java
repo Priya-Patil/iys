@@ -1,4 +1,4 @@
-package com.netist.mygirlshostel.advertisement;
+package com.netist.mygirlshostel.adv;
 
 import android.Manifest;
 import android.app.DatePickerDialog;
@@ -14,6 +14,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -28,7 +30,6 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.netist.mygirlshostel.BaseActivity;
 
 import com.netist.mygirlshostel.R;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
@@ -45,7 +46,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class AdvRegistrationActivity extends BaseActivity implements View.OnClickListener{
+public class AdvRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText tv_name, /*tv_age, tv_email,*/ tv_mobile, tv_address, tv_password, tv_vpassword, et_otp ;
     //RadioButton rbtn_male,rbtn_female;
@@ -58,7 +59,7 @@ public class AdvRegistrationActivity extends BaseActivity implements View.OnClic
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_registration);
+        setContentView(R.layout.activity_adv_registration);
 
         setTitle("User Registration");
 
@@ -95,8 +96,9 @@ public class AdvRegistrationActivity extends BaseActivity implements View.OnClic
     public void onClick(View v) {
         if (v.getId() == R.id.btn_submit) {
 
-            OTP = GenerateRandomNumber(6);
-            sendSMS(OTP);
+                   RegisterUser();
+           /* OTP = GenerateRandomNumber(6);
+            sendSMS(OTP);*/
         }
     }
 
@@ -372,7 +374,7 @@ public class AdvRegistrationActivity extends BaseActivity implements View.OnClic
             session.setUserName(name);
             session.setUserMobile(mobile);
 
-        resultbox.cancel();
+      //  resultbox.cancel();
 
         Intent intent = new Intent(AdvRegistrationActivity.this, AdvHomeActivity.class);
             startActivity(intent);

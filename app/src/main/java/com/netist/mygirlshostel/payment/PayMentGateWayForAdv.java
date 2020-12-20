@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
@@ -16,24 +15,16 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
-import com.netist.mygirlshostel.MainActivity;
-import com.netist.mygirlshostel.advertisement.AddAdvertisementActivity;
-import com.netist.mygirlshostel.advertisement.AdvertisementListActivity;
+import com.netist.mygirlshostel.adv.AdvertisementListActivity;
 import com.netist.mygirlshostel.constants.PrefManager;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;
-import com.netist.mygirlshostel.web_api_handler.AppController;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -44,8 +35,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-
-import static com.netist.mygirlshostel.web_api_handler.ApiConfig.urlpayment;
 
 /**
  * Created by varun Kumar on 23/1/16.

@@ -1,4 +1,4 @@
-package com.netist.mygirlshostel.advertisement;
+package com.netist.mygirlshostel.adv;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,10 +8,9 @@ import com.androidnetworking.AndroidNetworking;
 import com.androidnetworking.common.Priority;
 import com.androidnetworking.error.ANError;
 import com.androidnetworking.interfaces.JSONArrayRequestListener;
-import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.netist.mygirlshostel.advertisement.model.SliderImageModel;
+import com.netist.mygirlshostel.adv.model.SliderImageModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

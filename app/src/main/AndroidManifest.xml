@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.netist.mygirlshostel">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -13,12 +12,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-<!--
-    <uses-permission android:name="android.permission.SEND_SMS" />
--->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
-
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -35,7 +30,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
+        <activity android:name=".accounts.AccountsActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -50,15 +45,13 @@
 
         <activity
             android:name=".map.SearchNearMeActivity"
-            android:label="title_activity_search_near_me">
-
-        </activity>
-        <activity android:name=".map.MapsActivity"></activity>
-        <activity android:name=".SampleActivity"></activity>
-        <activity android:name=".advertisement.AdvertisementListActivity" />
-        <activity android:name=".advertisement.AdvRegistrationActivity" />
-        <activity android:name=".advertisement.AdvHomeActivity" />
-        <activity android:name=".advertisement.AddAdvertisementActivity" />
+            android:label="title_activity_search_near_me"></activity>
+        <activity android:name=".map.MapsActivity" />
+        <activity android:name=".SampleActivity" />
+        <activity android:name=".adv.AdvertisementListActivity" />
+        <activity android:name=".adv.AdvRegistrationActivity" />
+        <activity android:name=".adv.AdvHomeActivity" />
+        <activity android:name=".adv.AddAdvertisementActivity" />
         <activity android:name=".NewSplashActivity" />
         <activity android:name=".MapTestingActivity" />
         <activity android:name=".payment.PayMentGateWayForAdv" />
@@ -69,7 +62,7 @@
 
         <activity android:name=".NewLocationActivity" />
         <activity android:name=".hostel.AddHostelActivity" />
-        <activity android:name=".advertisement.EditAdvertisementActivity" />
+        <activity android:name=".adv.EditAdvertisementActivity" />
         <activity android:name=".payment.SubPaymentHistoryActivity" />
 
         <service android:name=".FCM.MyFirebaseInstanceIDService">
@@ -85,10 +78,10 @@
 
         <activity android:name=".SplashActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".BaseActivity"

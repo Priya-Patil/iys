@@ -44,7 +44,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class UserRegistrationActivity extends BaseActivity implements View.OnClickListener{
+public class UserRegistrationActivity extends AppCompatActivity implements View.OnClickListener{
 
     EditText tv_name, /*tv_age, tv_email,*/ tv_mobile, tv_address, tv_password, tv_vpassword, et_otp ;
     //RadioButton rbtn_male,rbtn_female;
