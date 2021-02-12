@@ -21,6 +21,7 @@ import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.netist.mygirlshostel.adv.AdvHomeActivity;
 import com.netist.mygirlshostel.constants.PrefManager;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;
@@ -38,7 +39,7 @@ public class SelectRoleActivity extends AppCompatActivity implements View.OnClic
 
     private CardView cvPrincipal;
     private CardView cvTeacher;
-    private CardView cv_adv, cv_Trust;
+    private CardView cv_adv, cv_Trust, cv_guest;
     PrefManager prefManager;
 
     int typeIndex = 0;
@@ -69,8 +70,10 @@ public class SelectRoleActivity extends AppCompatActivity implements View.OnClic
         cvTeacher.setOnClickListener(this);
         cv_adv = (CardView) findViewById(R.id.cv_adv);
         cv_Trust = (CardView) findViewById(R.id.cv_Trust);
+        cv_guest = (CardView) findViewById(R.id.cv_guest);
         cv_adv.setOnClickListener(this);
         cv_Trust.setOnClickListener(this);
+        cv_guest.setOnClickListener(this);
         prefManager=new PrefManager(SelectRoleActivity.this);
         sessionHelper=new SessionHelper(SelectRoleActivity.this);
         ib_twitter = findViewById(R.id.ib_twitter);
@@ -103,14 +106,24 @@ public class SelectRoleActivity extends AppCompatActivity implements View.OnClic
                 Utility.launchActivity(SelectRoleActivity.this, WelcomeActivity.class, true);
                 break;
 
+            case R.id.cv_guest:
+                sessionHelper.setLogin(true);
+                sessionHelper.setUserType("guest");
+                sessionHelper.setUserID("abc");
+                sessionHelper.setUserName("Guest User");
+                sessionHelper.setUserMobile("");
+                sessionHelper.setTokenUpdated(true);
+                Utility.launchActivity(SelectRoleActivity.this, MainActivity.class, true);
+                break;
+
             case R.id.cv_Principal:
                 // prefManager.setROLE("Service Provider");
 
                 final CharSequence[] typeList = new CharSequence[] {
                         "Hostel",
-                        "Mess",
+                      /*  "Mess",
                         "Classes",
-                        "Library"
+                        "Library"*/
                 };
 
                 final AlertDialog.Builder alert = new AlertDialog.Builder(SelectRoleActivity.this);

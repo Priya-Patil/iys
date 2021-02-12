@@ -14,8 +14,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
+import com.daimajia.slider.library.Animations.DescriptionAnimation;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.daimajia.slider.library.Tricks.ViewPagerEx;
 import com.netist.mygirlshostel.R;
 import com.netist.mygirlshostel.adapter.ViewListAdapter;
+import com.netist.mygirlshostel.adv.model.SliderImageModel;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.web_api_handler.ApiConfig;
 import com.netist.mygirlshostel.web_api_handler.AppController;
@@ -28,7 +34,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ViewListActivity extends AppCompatActivity {
+public class ViewListActivity extends AppCompatActivity implements BaseSliderView.OnSliderClickListener, ViewPagerEx.OnPageChangeListener {
 
     private String id, type;
     private ArrayList<HashMap<String,String>> noticeList ;
@@ -37,10 +43,14 @@ public class ViewListActivity extends AppCompatActivity {
 
     private String tag_string_req = "";
 
+    private SliderLayout mDemoSlider;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_list);
+
+        mDemoSlider = (SliderLayout) findViewById(R.id.slider);
 
         setTitle("View List");
 
@@ -144,6 +154,9 @@ public class ViewListActivity extends AppCompatActivity {
 
                         noticeList.add(listItem);
                     }
+
+                    slider(noticeList);
+
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
@@ -201,5 +214,58 @@ public class ViewListActivity extends AppCompatActivity {
 
         Log.e("Restart","Done");
         setViewList();
+    }
+
+    public void slider( ArrayList<HashMap<String,String>> noticeList ) {
+        HashMap<String, String> url_maps1 = new HashMap<String, String>();
+        int id = 1;
+        for (int i=0; i<noticeList.size(); i++) {
+            Log.e("checkLists",""+noticeList.get(i).get("imgFile"));
+
+            String img=noticeList.get(i).get("imgFile").substring(0, noticeList.get(i).get("imgFile").length() - 1);;
+            String imgPath = ApiConfig.urlViewImage+img;
+            //String imgPath = model.getImages();
+            Log.e( "slider: ",ApiConfig.urlViewImage+noticeList.get(i).get("imgFile"));
+            url_maps1.put(imgPath,imgPath);
+        }
+        for (String name : url_maps1.keySet()) {
+            //Log.e("checkImg",""+name);
+            DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+            defaultSliderView.image(url_maps1.get(name))
+                    .setScaleType(BaseSliderView.ScaleType.Fit)
+                    .setOnSliderClickListener(this);
+
+            defaultSliderView.bundle(new Bundle());
+            defaultSliderView.getBundle()
+                    .putString("extra", name);
+
+            mDemoSlider.addSlider(defaultSliderView);
+        }
+
+        mDemoSlider.setPresetTransformer(SliderLayout.Transformer.Accordion);//Fade
+        mDemoSlider.setPresetIndicator(SliderLayout.PresetIndicators.Center_Bottom);
+        mDemoSlider.setCustomAnimation(new DescriptionAnimation());
+        // mDemoSlider.setDuration(4000);
+        mDemoSlider.addOnPageChangeListener(this);
+    }
+
+    @Override
+    public void onSliderClick(BaseSliderView slider) {
+
+    }
+
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
+
+    @Override
+    public void onPageSelected(int position) {
+
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int state) {
+
     }
 }

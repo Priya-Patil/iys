@@ -147,8 +147,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_share_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\Piyuuu" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="bluemarker" />
+                            <entry key="sourceFile" value="C:\Users\Piyuuu\Desktop\bluemarker.svg" />
                           </map>
                         </option>
                       </PersistentState>

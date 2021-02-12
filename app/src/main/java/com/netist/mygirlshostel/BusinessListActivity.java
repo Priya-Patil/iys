@@ -90,7 +90,7 @@ public class BusinessListActivity extends BaseActivity implements View.OnClickLi
                     getSubCharges(type);
                 }
 
-                else if(session.getUserType().equals("admin") || session.getUserType().equals("user")) {
+                else if(session.getUserType().equals("admin") || session.getUserType().equals("user")|| session.getUserType().equals("guest") ) {
                     switch (type) {
                         case "Hostel": {
                             Intent intent = new Intent(getApplicationContext(), HostelListActivity.class);
@@ -666,7 +666,7 @@ public class BusinessListActivity extends BaseActivity implements View.OnClickLi
         listItem.put("name", "Hostel");
         businessList.add(listItem);
 
-        listItem = new HashMap<String,String>();
+    /*    listItem = new HashMap<String,String>();
         listItem.put("picture", new Integer(R.drawable.mess_reg).toString());
         listItem.put("name", "Mess");
         businessList.add(listItem);
@@ -679,7 +679,7 @@ public class BusinessListActivity extends BaseActivity implements View.OnClickLi
         listItem = new HashMap<String,String>();
         listItem.put("picture", new Integer(R.drawable.library_reg).toString());
         listItem.put("name", "Library");
-        businessList.add(listItem);
+        businessList.add(listItem);*/
 
         if (intent.getStringExtra("charges") != null && intent.getStringExtra("charges") != "") {
             if (session.getUserType().equals("admin")) {

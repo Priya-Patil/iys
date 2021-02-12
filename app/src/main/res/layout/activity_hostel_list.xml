@@ -48,7 +48,7 @@
             android:id="@+id/inputSearch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter name"
+            android:hint="Enter hostel name"
             android:inputType="textPersonName"
             android:layout_toLeftOf="@+id/btn_search"
             android:layout_alignParentLeft="true"
@@ -86,7 +86,7 @@
             />
 
         <Button
-            android:text="Search Area"
+            android:text="Search City"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:id="@+id/txt_area"
@@ -110,7 +110,7 @@
         android:visibility="gone"
         />
     <Button
-        android:text="Select hostel"
+        android:text="Current location hostel list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/btn_hostel_type"

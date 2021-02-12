@@ -295,6 +295,20 @@ public class SearchNearMeActivity extends FragmentActivity implements OnMapReady
                                         bundle.putString("name",hostelList.get(i).get("name") );
                                         bundle.putString("picture",hostelList.get(i).get("picture") );
                                         bundle.putString("availability",hostelList.get(i).get("availability") );
+
+                                        prefManager.sethostelid(hostelList.get(i).get("hostelId"));
+                                        prefManager.sethname(hostelList.get(i).get("name"));
+                                        prefManager.sethavailability(hostelList.get(i).get("availability"));
+                                        prefManager.sethpicture(hostelList.get(i).get("picture"));
+                                        prefManager.setlatitude(hostelList.get(i).get("latitude"));
+                                        prefManager.setlongitude(hostelList.get(i).get("longitude"));
+                                        Log.e( "onMarkerClick: ",
+                                                //hostelList.get(i).get("hostelId")+
+                                              //  hostelList.get(i).get("name")+
+                                                hostelList.get(i).get("picture")+"pp "+
+                                                hostelList.get(i).get("availability")
+                                        );
+
                                         Utility.launchActivity(SearchNearMeActivity.this, HostelDetailActivity.class,
                                                 false, bundle);
                                         //  Toast.makeText(SearchNearMeActivity.this, "mm"+hostelList.get(i).get("hostelId"), Toast.LENGTH_SHORT).show();

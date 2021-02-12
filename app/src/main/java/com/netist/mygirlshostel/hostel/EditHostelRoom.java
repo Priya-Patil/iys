@@ -130,10 +130,10 @@ public class EditHostelRoom extends BaseActivity implements View.OnClickListener
 
                     // Room No, Total Count, Occupancy Count, Availability Count
                     ((TextView) row.findViewById(R.id.tv_name)).setText("Name");
-                    ((TextView) row.findViewById(R.id.tv_total)).setText("totalcharge");
+                    ((TextView) row.findViewById(R.id.tv_total)).setText("Charge");
                     ((TextView) row.findViewById(R.id.tv_occ)).setText("Occu");
                     ((TextView) row.findViewById(R.id.tv_id)).setText("id");
-                    ((TextView) row.findViewById(R.id.tv_totalcharge)).setText("totalroom");
+                    ((TextView) row.findViewById(R.id.tv_totalcharge)).setText("Rooms");
                     ((TextView) row.findViewById(R.id.tv_id)).setVisibility(View.GONE);
 
                     ((TextView) row.findViewById(R.id.tv_edit)).setText("Edit");

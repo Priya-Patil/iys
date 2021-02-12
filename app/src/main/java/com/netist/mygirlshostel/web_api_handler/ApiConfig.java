@@ -7,7 +7,7 @@ package com.netist.mygirlshostel.web_api_handler;
 public class ApiConfig {
 
     //private static final String domainName = "http://iysonline.club/";
-    private static final String domainName = "http://iysinfo.com/";
+    public static final String domainName = "http://iysinfo.com/";
 
     private static final String domainNameAPI = domainName + "mygirlshostel1/";
    // private static final String domainNameAPI = domainName + "api/";
@@ -114,5 +114,9 @@ public class ApiConfig {
     public static final String urlViewDocument = domainName + "documents/views/";
 
     public static String urladv_reg = domainNameAPI + "adv_reg.php";
+    public static String urlgetappversion = "http://iysinfo.com/iys/api/processes/category.php/";
+
+
+
 
 }

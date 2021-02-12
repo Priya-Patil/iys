@@ -154,58 +154,15 @@ public class MainActivity extends HomeBaseActivity implements View.OnClickListen
                 });
                 builder.show();
             }
-           /* else if (permissionStatus.getBoolean(Manifest.permission.READ_PHONE_STATE,false))
-            {
-                //Previously Permission Request was cancelled with 'Dont Ask Again',
-                // Redirect to Settings after showing Information about why you need the permission
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-                builder.setTitle("Need Storage Permission");
-                builder.setMessage("This app needs storage permission.");
-                builder.setPositiveButton("Grant", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                        sentToSettings = true;
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        Uri uri = Uri.fromParts("package", getApplicationContext().getPackageName(), null);
-                        intent.setData(uri);
-                        startActivityForResult(intent, REQUEST_PERMISSION_SETTING);
-                        Toast.makeText(getApplicationContext(), "Go to Permissions to Grant Phone", Toast.LENGTH_LONG).show();
-                    }
-                });
-                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
-            }*/
             else
             {
                 //just request the permission
                 requestPermissions(new String[]{android.Manifest.permission.READ_PHONE_STATE},PERMISSION_CALLBACK_CONSTANT);
             }
-            //  txtPermissions.setText("Permissions Required");
-
-           /* SharedPreferences.Editor editor = permissionStatus.edit();
-            editor.putBoolean(Manifest.permission.READ_PHONE_STATE,true);
-            editor.commit();*/
-        } else {
+           } else {
             //You already have the permission, just go ahead.
             proceedAfterPermission();
         }
-
-
-
-
-
-
-        // end
-
-
-        //end
-
 
         prefManager.setAREA_SELECTED("area1");
 
@@ -605,7 +562,8 @@ public class MainActivity extends HomeBaseActivity implements View.OnClickListen
         for (SliderImageModel model : arraylist) {
             Log.e("checkLists",""+arraylist);
 
-            String imgPath = "http://iysonline.club/iys/api/attachments/sliderimages/"+model.getImages();
+           // String imgPath = "http://iysonline.club/iys/api/attachments/sliderimages/"+model.getImages();
+            String imgPath = ApiConfig.domainName+"iys/api/attachments/sliderimages/"+model.getImages();
             //String imgPath = model.getImages();
             //Log.e( "slider: ",imgPath);
             url_maps1.put(model.getTitle(),imgPath);

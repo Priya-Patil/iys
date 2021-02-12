@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,8 +33,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.google.android.gms.maps.model.LatLng;
 import com.netist.mygirlshostel.BaseActivity;
 import com.netist.mygirlshostel.GoogleMapActivity;
+import com.netist.mygirlshostel.GuestRegistrationActivity;
 import com.netist.mygirlshostel.MainActivity;
 import com.netist.mygirlshostel.R;
+import com.netist.mygirlshostel.UserRegistrationActivity;
+import com.netist.mygirlshostel.WelcomeActivity;
 import com.netist.mygirlshostel.components.CircularNetworkImageView;
 import com.netist.mygirlshostel.components.Utils;
 import com.netist.mygirlshostel.constants.PrefManager;
@@ -69,11 +74,13 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
     ArrayList<HashMap<String, String>> chargesList;
     TableLayout table;
     TextView tv_contact_no;
+    SessionHelper session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hostel_detail);
+        session = new SessionHelper(getApplicationContext());
 
         tv_contact_no=findViewById(R.id.tv_contact_no);
         prefManager=new PrefManager(HostelDetailActivity.this);
@@ -88,13 +95,18 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
         userId = session.getUserID();
         userName = session.getUserName();
 
-        hostelId = getIntent().getExtras().getString("hostelId");
+        hostelId = prefManager.gethostelid();
         prefManager.setHOSTELID_SELECTED(hostelId);
-        // Toast.makeText(getApplicationContext(), "hostelId"+hostelId, Toast.LENGTH_LONG).show();
+        hostelName = prefManager.gethname();
+        hostelImage = prefManager.gethpicture();
+        hostelAvailability = prefManager.gethavailability();
+
+        /*hostelId = getIntent().getExtras().getString("hostelId");
+        prefManager.setHOSTELID_SELECTED(hostelId);
         hostelName = getIntent().getExtras().getString("name");
         hostelImage = getIntent().getExtras().getString("picture");
         hostelAvailability = getIntent().getExtras().getString("availability");
-
+*/
 
         //imp
         selectTotalCountAfterDelete();
@@ -134,10 +146,15 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
         ((Button) findViewById(R.id.btn_google_map)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LatLng position = new LatLng(latitude, longitude);
+               /* LatLng position = new LatLng(latitude, longitude);
                 Intent intent = new Intent(getApplicationContext(), GoogleMapActivity.class);
                 intent.putExtra("position", position);
+                startActivity(intent);*/
+                Uri uri = Uri.parse("geo:0,0?q="+Float.parseFloat(prefManager.getlatitude())+","+
+                        Float.parseFloat(prefManager.getlongitude()));
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(intent);
+                Log.e( "onClick: ", prefManager.getlatitude()+"     "+prefManager.getlongitude() );
             }
         });
 
@@ -814,6 +831,29 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                                 if (isChecked){
+                                    if(session.getUserType().equals("guest"))
+                                    {
+                                        new android.app.AlertDialog.Builder(HostelDetailActivity.this)
+                                                .setMessage("Please register yourself for hostel booking")
+                                                .setCancelable(false)
+
+                                                .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                                                        Utility.launchActivity(HostelDetailActivity.this, GuestRegistrationActivity.class,true);
+
+                                                    }
+                                                })
+                                                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                                        HostelDetailActivity.this.onBackPressed();
+                                                        //Toast.makeText(activity, "nooo", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                })
+                                                .show();
+                                    }
+                                    else {
                                     final TableRow tableRow = (TableRow) buttonView.getParent();
                                     hostelId = chargesList.get(table.indexOfChild(tableRow) -1).get("hostelId");
                                     String roomName = chargesList.get(table.indexOfChild(tableRow) -1).get("r_name");
@@ -825,7 +865,8 @@ public class HostelDetailActivity extends BaseActivity implements View.OnClickLi
                                     }
                                     Toast.makeText(getApplicationContext(), "roomName"+roomName, Toast.LENGTH_LONG).show();
                                     // Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_LONG).show();
-                                  //  setBooking(roomName,price);
+                                   //  setBooking(roomName,price);
+                                    }
                                 }else {
 
                                 }

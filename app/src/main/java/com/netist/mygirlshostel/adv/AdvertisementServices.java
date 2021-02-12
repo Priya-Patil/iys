@@ -11,6 +11,7 @@ import com.androidnetworking.interfaces.JSONArrayRequestListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.netist.mygirlshostel.adv.model.SliderImageModel;
+import com.netist.mygirlshostel.web_api_handler.ApiConfig;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -53,7 +54,8 @@ public class AdvertisementServices {
                 apiStatusCallBack.onUnknownError(e);
             }
 
-            AndroidNetworking.post("http://iysonline.club/iys/api/processes/images.php/")
+        //    AndroidNetworking.post("http://iysinfo.com/iys/api/processes/images.php/")
+            AndroidNetworking.post(ApiConfig.domainName+"iys/api/processes/images.php/")
                     .addJSONObjectBody(jsonObject)
                     .setTag("test")
                     .setPriority(Priority.MEDIUM)
@@ -103,7 +105,8 @@ public class AdvertisementServices {
                 apiStatusCallBack.onUnknownError(e);
             }
 
-            AndroidNetworking.post("http://iysonline.club/iys/api/processes/images.php/")
+           // AndroidNetworking.post("http://iysinfo.com/iys/api/processes/images.php/")
+            AndroidNetworking.post(ApiConfig.domainName+"iys/api/processes/images.php/")
                     .addJSONObjectBody(jsonObject)
                     .setTag("test")
                     .setPriority(Priority.MEDIUM)
@@ -154,7 +157,8 @@ public class AdvertisementServices {
                 apiStatusCallBack.onUnknownError(e);
             }
 
-            AndroidNetworking.post("http://iysonline.club/iys/api/processes/images.php/")
+//            AndroidNetworking.post("http://iysinfo.com/iys/api/processes/images.php/")
+            AndroidNetworking.post(ApiConfig.domainName+"iys/api/processes/images.php/")
                     .addJSONObjectBody(jsonObject)
                     .setTag("test")
                     .setPriority(Priority.MEDIUM)

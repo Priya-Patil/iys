@@ -103,7 +103,7 @@ public class AdvRegistrationActivity extends AppCompatActivity implements View.O
     }
 
 
-    private void sendSMS(String OTP) {
+     void sendSMS(String OTP) {
         try {
              SmsManager sms = SmsManager.getDefault();
                 {

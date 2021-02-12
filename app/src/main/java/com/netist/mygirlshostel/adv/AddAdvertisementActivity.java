@@ -35,6 +35,7 @@ import com.netist.mygirlshostel.adv.dialogs.ImagePreview_Dialog;
 import com.netist.mygirlshostel.payment.PayMentGateWayForAdv;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;
+import com.netist.mygirlshostel.web_api_handler.ApiConfig;
 import com.netist.mygirlshostel.web_api_handler.AppController;
 
 import org.json.JSONArray;
@@ -413,7 +414,8 @@ public class AddAdvertisementActivity extends AppCompatActivity implements View.
 
             //{"type":3,"Action":1,"Attachmentid":0,"Homeworkid":3,"Typeid":1,"Filename":"Filename","LogedinUserId":1}
             int UserId = 1;
-            AndroidNetworking.upload("http://iysonline.club/iys/api/processes/images.php/")
+          //  AndroidNetworking.upload("http://iysinfo.com/iys/api/processes/images.php/")
+            AndroidNetworking.upload(ApiConfig.domainName+"iys/api/processes/images.php/")
                     // .addFileToUpload("", "certificate") //Adding file
                     .addMultipartParameter("type", "1")
                     .addMultipartParameter("Action", "1")

@@ -36,6 +36,7 @@ import com.netist.mygirlshostel.WelcomeActivity;
 import com.netist.mygirlshostel.adv.model.SliderImageModel;
 import com.netist.mygirlshostel.session_handler.SessionHelper;
 import com.netist.mygirlshostel.utils.Utility;
+import com.netist.mygirlshostel.web_api_handler.ApiConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -322,7 +323,7 @@ public class AdvHomeActivity extends AppCompatActivity implements View.OnClickLi
         for (SliderImageModel model : arraylist) {
             Log.e("checkLists",""+arraylist);
 
-            String imgPath = "http://iysonline.club/iys/api/attachments/sliderimages/"+model.getImages();
+            String imgPath = ApiConfig.domainName+"iys/api/attachments/sliderimages/"+model.getImages();
             //String imgPath = model.getImages();
             //Log.e( "slider: ",imgPath);
             url_maps1.put(imgPath,imgPath);

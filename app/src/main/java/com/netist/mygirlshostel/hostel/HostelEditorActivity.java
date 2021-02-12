@@ -3,13 +3,19 @@ package com.netist.mygirlshostel.hostel;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.Log;
 import android.util.SparseArray;
@@ -39,6 +45,7 @@ import com.netist.mygirlshostel.WelcomeActivity;
 import com.netist.mygirlshostel.components.CircularNetworkImageView;
 import com.netist.mygirlshostel.components.RoomData;
 import com.netist.mygirlshostel.components.Utils;
+import com.netist.mygirlshostel.map.MapsActivity;
 import com.netist.mygirlshostel.utils.Utility;
 import com.netist.mygirlshostel.web_api_handler.ApiConfig;
 import com.netist.mygirlshostel.web_api_handler.AppController;
@@ -50,6 +57,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 public class HostelEditorActivity extends BaseActivity implements View.OnClickListener{
@@ -75,11 +84,20 @@ public class HostelEditorActivity extends BaseActivity implements View.OnClickLi
     RadioButton radioButton;
     int type;
 
+
+    LocationManager lm;
+    boolean gps_enabled ;
+    boolean network_enabled;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hostel_editor);
 
+        lm = (LocationManager) HostelEditorActivity.this.getSystemService(Context.LOCATION_SERVICE);
+        gps_enabled = false;
+        network_enabled = false;
+        chkLocationManager();
         radiotype = findViewById(R.id.radiotype);
         et_name = (EditText) findViewById(R.id.et_name);
         et_location = (EditText) findViewById(R.id.et_location);
@@ -180,11 +198,29 @@ public class HostelEditorActivity extends BaseActivity implements View.OnClickLi
             case R.id.btn_time:
                 break;
             case R.id.btn_google_map:
-                Intent intent = new Intent(getApplicationContext(), GoogleMapActivity.class);
-                if (mMarkerPosition != null)
-                    intent.putExtra("position", mMarkerPosition);
-                intent.putExtra("map_setting", "");
-                startActivityForResult(intent, 10);
+
+                try {
+                    gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                } catch(Exception ex) {}
+
+                try {
+                    network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                } catch(Exception ex) {}
+
+                if(!gps_enabled && !network_enabled) {
+
+                    Toast.makeText(HostelEditorActivity.this, "GPS not enabled", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    Intent intent = new Intent(getApplicationContext(), GoogleMapActivity.class);
+                    if (mMarkerPosition != null)
+                        intent.putExtra("position", mMarkerPosition);
+                    intent.putExtra("map_setting", "");
+                    startActivityForResult(intent, 10);
+                }
+
+
                 break;
 
             case R.id.btn_room:
@@ -428,6 +464,7 @@ public class HostelEditorActivity extends BaseActivity implements View.OnClickLi
                             et_person.setText(person);
                             et_mobile.setText(mobile);
                             et_charges.setText(charges);
+                           // getAddress((new Double(mMarkerPosition.latitude)), (new Double(mMarkerPosition.longitude)));
                             tv_map_postion.setText(mMarkerPosition.toString());
                             et_password.setText(password);
                             et_vpassword.setText(password);
@@ -753,5 +790,71 @@ public class HostelEditorActivity extends BaseActivity implements View.OnClickLi
         Bundle bundle=new Bundle();
         bundle.putString("hostelId",hostelId);
         Utility.launchActivity(HostelEditorActivity.this, HostelDetailActivity.class,false, bundle);
+    }
+
+    void getAddress(double latitude, double longitude)
+    {
+        Geocoder geocoder;
+        List<Address> addresses;
+        geocoder = new Geocoder(this, Locale.getDefault());
+
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName(); // Only if ava
+            Log.e( "getAddress: ",  address);
+            tv_map_postion.setText(address);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+    void chkLocationManager()
+    {
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            new android.app.AlertDialog.Builder(HostelEditorActivity.this)
+                    .setMessage("GPS network not enabled")
+                    .setCancelable(false)
+
+                    .setPositiveButton("Open location settings", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                            // startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 1);
+
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            HostelEditorActivity.this.onBackPressed();
+                            //Toast.makeText(activity, "nooo", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .show();
+        }
+        //enabled
+        else {
+            Toast.makeText(HostelEditorActivity.this, "gps enabled", Toast.LENGTH_SHORT).show();
+
+
+        }
     }
 }

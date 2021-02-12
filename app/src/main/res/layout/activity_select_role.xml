@@ -11,7 +11,7 @@
         android:id="@+id/Toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="0dp"
         >
 
         <TextView
@@ -39,11 +39,28 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/Toolbar"
+        android:layout_above="@+id/layout1"
+        >
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          >
 
 
         <androidx.cardview.widget.CardView
@@ -231,15 +248,13 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_parents"
+            android:id="@+id/cv_guest"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/shape_test"
-
             android:layout_below="@+id/cv_teacher"
-            android:layout_marginBottom="60dp"
-            android:visibility="gone">
+            android:visibility="visible"
+            >
 
 
             <View
@@ -255,6 +270,7 @@
                 android:layout_marginBottom="-10dp"
                 android:layout_marginRight="-10dp"
                 android:background="@drawable/ic_planning"
+                android:visibility="gone"
                 />
 
             <RelativeLayout
@@ -262,17 +278,18 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:paddingRight="4dp"
-                android:layout_margin="15dp">
+                android:layout_margin="15dp"
+                android:background="@color/colorPrimary">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Parents"
-                    android:textColor="@color/colorBlack"
+                    android:text="Guest"
+                    android:textColor="@color/colorWhite"
                     android:textSize="20dp"
                     android:textStyle="bold"
-                    android:layout_alignParentLeft="true"
                     android:id="@+id/tv_enquiry"
+                    android:layout_centerHorizontal="true"
                     />
 
                 <TextView
@@ -282,8 +299,10 @@
                     android:text="Click here!.."
                     android:layout_marginTop="5dp"
                     android:textSize="20dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_below="@id/tv_enquiry"/>
+                    android:layout_below="@id/tv_enquiry"
+                    android:textColor="@color/colorWhite"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"/>
 
             </RelativeLayout>
 
@@ -349,8 +368,12 @@
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
+        </LinearLayout>
+        </ScrollView>
 
 
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -358,7 +381,8 @@
         android:layout_marginBottom="10dp"
         android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:gravity="center">
+        android:gravity="center"
+        android:id="@+id/layout1">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/ib_email"

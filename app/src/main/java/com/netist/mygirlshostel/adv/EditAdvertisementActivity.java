@@ -30,6 +30,7 @@ import com.androidnetworking.interfaces.JSONObjectRequestListener;
 import com.androidnetworking.interfaces.UploadProgressListener;
 import com.netist.mygirlshostel.R;
 import com.netist.mygirlshostel.utils.Utility;
+import com.netist.mygirlshostel.web_api_handler.ApiConfig;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
@@ -309,7 +310,8 @@ public class EditAdvertisementActivity extends AppCompatActivity implements View
                     +" title  "+title+" Dt "+expiryDate );
             //{"type":3,"Action":1,"Attachmentid":0,"Homeworkid":3,"Typeid":1,"Filename":"Filename","LogedinUserId":1}
             int UserId = 1;
-            AndroidNetworking.upload("http://iysonline.club/iys/api/processes/images.php/")
+         //   AndroidNetworking.upload("http://iysonline.club/iys/api/processes/images.php/")
+            AndroidNetworking.upload(ApiConfig.domainName+"iys/api/processes/images.php/")
                     // .addFileToUpload("", "certificate") //Adding file
                     .addMultipartParameter("type", "1")
                     .addMultipartParameter("Action", "1")

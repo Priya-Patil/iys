@@ -292,8 +292,6 @@ public class WelcomeActivity extends AppCompatActivity {
                         if(!session.getUserType().trim().equals("admin"))
                         {
                             session.setUserMobile(jObj.getString("mobile"));
-                            //session.setUserAge(jObj.getString("age"));
-                            //session.setUserGender(jObj.getString("gender"));
 
                         }
 

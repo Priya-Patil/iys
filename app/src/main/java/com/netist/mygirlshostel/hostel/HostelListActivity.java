@@ -1,16 +1,21 @@
 package com.netist.mygirlshostel.hostel;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AlertDialog;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -94,12 +99,21 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
     String htype;
     TextView txt_clocation, txt_area;
 
+    LocationManager lm;
+    boolean gps_enabled ;
+    boolean network_enabled;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hostel_list);
+       // setContentView(R.layout.activity_hostel_list);
        // getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+         lm = (LocationManager) HostelListActivity.this.getSystemService(Context.LOCATION_SERVICE);
+         gps_enabled = false;
+         network_enabled = false;
 
+        chkLocationManager();
         spinner1 = (Spinner) findViewById(R.id.spinner1);
         prefManager = new PrefManager(HostelListActivity.this);
         listView = (ListView) findViewById(R.id.lv_hostelList);
@@ -122,26 +136,27 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
         txt_clocation.setOnClickListener(this);
         session = new SessionHelper(this);
         setTitle("Hostel List");
-
         Log.e( "chkrole: ", session.getUserType());
-
-        if(prefManager.getLati()==null)
+       /* if(prefManager.getLati()==null)
         {
-            dialog();
+           // dialog();
+            Toast.makeText(HostelListActivity.this, "111", Toast.LENGTH_SHORT).show();
+            fn_getlocation();
         }
         else {
+            Toast.makeText(HostelListActivity.this, "2222", Toast.LENGTH_SHORT).show();
 
             setHostelListUsingLatLong(prefManager.getType(), prefManager.getLati(), prefManager.getLongi(), prefManager.getDistance());
 
         }
-
+*/
+        fn_getlocation();
         if(session.getUserType().equals("hostel"))
         {
             search.setVisibility(View.GONE);
             seek_barlayout.setVisibility(View.GONE);
         }
         //   gpsTracker = new GPSTracker(this);
-
 
         Bundle bundle = getIntent().getExtras();
 
@@ -505,6 +520,7 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
                 try {
                     JSONArray responseArr = new JSONArray(response);
                     hostelList.clear();
+                    Log.e( "onResponse: ",  responseArr.toString());
                     // Parsing json
                     for (int i = 0; i < responseArr.length(); i++) {
 
@@ -543,7 +559,7 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
                     listView.setAdapter(null);
                     //pp Toast.makeText(HostelListActivity.this, "Hostels Not Available...!", Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(HostelListActivity.this, "Hostels Not Available, please go to search setting menu and add location points proper..!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(HostelListActivity.this, "Hostels Not Available..!", Toast.LENGTH_SHORT).show();
 
                 }
 
@@ -619,20 +635,73 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
                 break;
 
             case R.id.txt_area:
-                prefManager.setSearchType("searcharea");
-                Utility.launchActivity(HostelListActivity.this, MapsActivity.class, false);
+
+
+                try {
+                    gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                } catch(Exception ex) {}
+
+                try {
+                    network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                } catch(Exception ex) {}
+
+                if(!gps_enabled && !network_enabled) {
+
+                    Toast.makeText(HostelListActivity.this, "GPS not enabled", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    //  Toast.makeText(HostelListActivity.this, "gps enabled", Toast.LENGTH_SHORT).show();
+                    prefManager.setSearchType("searcharea");
+                    Utility.launchActivity(HostelListActivity.this, MapsActivity.class, false);
+                }
+
+
                 break;
 
             case R.id.txt_clocation:
-                prefManager.setSearchType("clocation");
-                dialogForSetLimit();
+                try {
+                    gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                } catch(Exception ex) {}
+
+                try {
+                    network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                } catch(Exception ex) {}
+
+                if(!gps_enabled && !network_enabled) {
+
+                    Toast.makeText(HostelListActivity.this, "GPS not enabled", Toast.LENGTH_SHORT).show();
+
+                   }
+                else {
+                  //  Toast.makeText(HostelListActivity.this, "gps enabled", Toast.LENGTH_SHORT).show();
+                    prefManager.setSearchType("clocation");
+                    dialogForSetLimit();
+                }
                 break;
             case R.id.btn_map:
                 setAllForSearchForUser(inputSearch.getText().toString());
                 break;
 
             case R.id.btn_hostel_type:
-                dialog();
+                try {
+                    gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+                } catch(Exception ex) {}
+
+                try {
+                    network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+                } catch(Exception ex) {}
+
+                if(!gps_enabled && !network_enabled) {
+
+                    Toast.makeText(HostelListActivity.this, "GPS not enabled", Toast.LENGTH_SHORT).show();
+
+                }
+                else {
+                    //  Toast.makeText(HostelListActivity.this, "gps enabled", Toast.LENGTH_SHORT).show();
+                    fn_getlocation();
+                }
+
                 break;
 
             case R.id.seek_barlayout:
@@ -941,12 +1010,14 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
 
     void dialog()
     {
+
+       // Toast.makeText(HostelListActivity.this, "pppp", Toast.LENGTH_SHORT).show();
         final CharSequence[] typeList = new CharSequence[] {
                 "Girls hostel",
                 "Boys hostel",
 
         };
-        final AlertDialog.Builder alert = new AlertDialog.Builder(HostelListActivity.this);
+        AlertDialog.Builder alert = new AlertDialog.Builder(HostelListActivity.this);
         alert.setCancelable(false);
         alert.setSingleChoiceItems(typeList, 0, new DialogInterface.OnClickListener() {
             @Override
@@ -963,20 +1034,24 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
                     type="1";
                     prefManager.setType("1");
                     Toast.makeText(HostelListActivity.this, "girls hostel", Toast.LENGTH_SHORT).show();
-                    setHostelList(type, "0","100");
+                   // imp setHostelList(type, "0","100");
+                    dialogInterface.dismiss();
+                    dialogForSetLimit2KM(type);
                 }
                 else
                 {
                     type="2";
                     prefManager.setType("2");
                     Toast.makeText(HostelListActivity.this, "boys hostel", Toast.LENGTH_SHORT).show();
-                    setHostelList(type,"0","100");
+                  // imp  setHostelList(type,"0","100");
+                    dialogInterface.dismiss();
+                    dialogForSetLimit2KM(type);
+
                 }
             }
         });
         alert.show();
     }
-
 
     private void dialogForSetLimit( ) {
         // this.correct = correct;
@@ -1036,5 +1111,176 @@ public class HostelListActivity extends BaseActivity implements View.OnClickList
         resultbox.show();
     }
 
+    private void dialogForSetLimit2KM( String type ) {
+        // this.correct = correct;
+        final Dialog resultbox = new Dialog(this);
+        resultbox.setContentView(R.layout.dialog_set_limit);
+        resultbox.setCanceledOnTouchOutside(false);
+        SeekBar seek_bar = resultbox.findViewById(R.id.seek_bar);
+        Button btn_finish =  resultbox.findViewById(R.id.btn_finish);
+        Button btn_cancel =  resultbox.findViewById(R.id.btn_resume);
+        TextView  perText = resultbox.findViewById(R.id.percent_text);
+        //   perText.setText(Integer.toString(session.getUserDistance()) +"km");
 
+        perText.setText("2" +"km");
+        prefManager.setDistance("2");
+
+        seek_bar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                prefManager.setDistance(String.valueOf(progress));
+                perText.setText(Integer.toString(progress) +"km");
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+        btn_finish.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Log.e( "onClick: ",prefManager.getLati()+"   "+prefManager.getLongi() );
+               // Toast.makeText(HostelListActivity.this, "rrrr", Toast.LENGTH_SHORT).show();
+                resultbox.dismiss();
+                setHostelListUsingLatLong(type, prefManager.getLati(), prefManager.getLongi(), prefManager.getDistance());
+               // setHostelListUsingLatLong("1", "19.9173237", "75.3367078", "20");
+
+            }
+
+        });
+
+        btn_cancel.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                onBackPressed();
+                //resultbox.cancel();
+            }
+        });
+
+        resultbox.show();
+    }
+
+    private void fn_getlocation() {
+        locationManager = (LocationManager) getApplicationContext().getSystemService(LOCATION_SERVICE);
+        isGPSEnable = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        isNetworkEnable = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+        if (!isGPSEnable && !isNetworkEnable) {
+
+        } else {
+
+            if (isNetworkEnable) {
+                location = null;
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    Activity#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for Activity#requestPermissions for more details.
+                        return;
+                    }
+                }
+                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 0, this);
+                if (locationManager!=null){
+                    location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                    if (location!=null){
+
+                        Log.e("latitudeGgl",location.getLatitude()+"");
+                        Log.e("longitudeGgl",location.getLongitude()+"");
+
+                       // latitude = location.getLatitude();
+                       // longitude = location.getLongitude();
+
+                        prefManager.setLati(String.valueOf(location.getLatitude()));
+                        prefManager.setLongi(String.valueOf(location.getLongitude()));
+
+                        dialog();
+                        // fn_update(latitude,longitude,prefManager.getUSER_ID());
+                    }
+                }
+
+            }
+
+            if (isGPSEnable){
+                location = null;
+                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,this);
+                if (locationManager!=null){
+                    location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+                    if (location!=null){
+                        Log.e("latitude_service",location.getLatitude()+"");
+                        Log.e("longitude_service",location.getLongitude()+"");
+                     //   latitude = location.getLatitude();
+                     //   longitude = location.getLongitude();
+
+                        prefManager.setLati(String.valueOf(latitude));
+                        prefManager.setLongi(String.valueOf(latitude));
+                        dialog();
+
+                    }
+                }
+            }
+
+        }
+    }
+
+    void chkLocationManager()
+    {
+        LocationManager lm = (LocationManager) HostelListActivity.this.getSystemService(Context.LOCATION_SERVICE);
+        boolean gps_enabled = false;
+        boolean network_enabled = false;
+
+        try {
+            gps_enabled = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        } catch(Exception ex) {}
+
+        try {
+            network_enabled = lm.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+        } catch(Exception ex) {}
+
+        if(!gps_enabled && !network_enabled) {
+            // notify user
+            new android.app.AlertDialog.Builder(HostelListActivity.this)
+                    .setMessage("GPS network not enabled")
+                    .setCancelable(false)
+
+                    .setPositiveButton("Open location settings", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface paramDialogInterface, int paramInt) {
+                            // startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                            startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), 1);
+
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            HostelListActivity.this.onBackPressed();
+                            //Toast.makeText(activity, "nooo", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    .show();
+        }
+        //enabled
+        else {
+            Toast.makeText(HostelListActivity.this, "gps enabled", Toast.LENGTH_SHORT).show();
+
+
+        }
+    }
 }

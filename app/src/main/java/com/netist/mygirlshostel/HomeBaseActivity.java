@@ -83,7 +83,7 @@ public class HomeBaseActivity extends AppCompatActivity
 
         if(session.getUserType().equals("user")) {
 
-            navigationView.getMenu().add("Search Setting").setIcon(R.drawable.ic_menu_settings);
+        //    navigationView.getMenu().add("Search Setting").setIcon(R.drawable.ic_menu_settings);
 
             navigationView.getMenu().add("Booking").setIcon(R.drawable.ic_menu_booking);
 
@@ -136,7 +136,7 @@ public class HomeBaseActivity extends AppCompatActivity
         }
         else if(session.getUserType().equals("admin")) {
 
-            navigationView.getMenu().add("Search Setting").setIcon(R.drawable.ic_menu_settings);
+          //  navigationView.getMenu().add("Search Setting").setIcon(R.drawable.ic_menu_settings);
 
             navigationView.getMenu().add("Service Type").setIcon(R.drawable.ic_menu_business);
 
@@ -186,6 +186,11 @@ public class HomeBaseActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.homebase, menu);
+        MenuItem item = menu.findItem(R.id.action_logout);
+        if(session.getUserType().equals("guest"))
+        {
+            item.setVisible(false);
+        }
         return true;
     }
 
@@ -195,6 +200,7 @@ public class HomeBaseActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_logout) {
@@ -216,7 +222,7 @@ public class HomeBaseActivity extends AppCompatActivity
                             session.setUserType(null);
                             session.setUserID("");
 
-
+                            finishAffinity();
                             Utility.launchActivity(HomeBaseActivity.this, SplashActivity.class,
                                     true);
                         }

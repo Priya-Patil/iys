@@ -595,5 +595,6 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="title_activity_search_near_me">Map</string>
+    <string name="rate_us_link">https://play.google.com/store/apps/details?id=com.iys.inyourservice</string>
 
 </resources>

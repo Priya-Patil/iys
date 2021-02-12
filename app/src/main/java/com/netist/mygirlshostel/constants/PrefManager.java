@@ -50,6 +50,13 @@ public class PrefManager {
     private static final String Distance = "dis";
     private static final String Type = "type";
     private static final String SearchType = "SearchType";
+    private static final String hostelid = "hid";
+    private static final String hname = "hname";
+    private static final String hpicture = "hpicture";
+    private static final String havailability = "havailability";
+
+    private static final String latitude = "latitude";
+    private static final String longitude = "longitude";
 
 
     public PrefManager(Context context) {
@@ -223,6 +230,61 @@ public class PrefManager {
      public String getSearchType() {
          return pref.getString(SearchType, null);
      }
+
+     public void sethostelid(String r) {
+                            editor.putString(hostelid, r);
+                            editor.commit();
+                        }
+
+         public String gethostelid() {
+             return pref.getString(hostelid, null);
+         }
+
+
+         public void sethname(String r) {
+                            editor.putString(hname, r);
+                            editor.commit();
+                        }
+
+         public String gethname() {
+             return pref.getString(hname, null);
+         }
+
+         public void sethavailability(String r) {
+                            editor.putString(havailability, r);
+                            editor.commit();
+                        }
+
+         public String gethavailability() {
+             return pref.getString(havailability, null);
+         }
+
+         public void sethpicture(String r) {
+                            editor.putString(hpicture, r);
+                            editor.commit();
+                        }
+
+         public String gethpicture() {
+             return pref.getString(hpicture, null);
+         }
+
+         public void setlatitude(String r) {
+         editor.putString(latitude, r);
+         editor.commit();
+         }
+
+         public String getlatitude() {
+         return pref.getString(latitude, null);
+         }
+
+          public void setlongitude(String r) {
+         editor.putString(longitude, r);
+         editor.commit();
+         }
+
+         public String getlongitude() {
+         return pref.getString(longitude, null);
+         }
 
 
 
