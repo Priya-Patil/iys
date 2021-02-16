@@ -598,7 +598,7 @@ public class MainActivity extends HomeBaseActivity implements View.OnClickListen
         Toast.makeText(this, "chk" +slider.getUrl(), Toast.LENGTH_SHORT).show();
         Log.e( "onSliderClick: ",slider.getUrl() );
 */
-       String ipath=slider.getUrl().replaceAll(" ", "%20");
+        String ipath=slider.getUrl().replaceAll(" ", "%20");
         Intent i = new Intent(Intent.ACTION_VIEW);
         i.setData(Uri.parse(ipath));
         startActivity(i);

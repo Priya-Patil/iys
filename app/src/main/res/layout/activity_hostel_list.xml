@@ -36,36 +36,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <!--endregion-->
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:id="@+id/search"
-        >
 
-        <!-- Editext for Search -->
-        <EditText
-            android:id="@+id/inputSearch"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="Enter hostel name"
-            android:inputType="textPersonName"
-            android:layout_toLeftOf="@+id/btn_search"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="10dp"
-            />
-
-        <Button
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:id="@+id/btn_search"
-            android:background="@drawable/ic_search_black_24dp"
-            android:textColor="@color/colorWhite"
-            android:textAllCaps="false"
-            android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            />
-    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -138,6 +109,37 @@
         android:layout_weight="1"
         android:id="@+id/lv_hostelList"
         android:layout_marginTop="10dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:id="@+id/search"
+        >
+
+        <!-- Editext for Search -->
+        <EditText
+            android:id="@+id/inputSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Enter hostel name"
+            android:inputType="textPersonName"
+            android:layout_toLeftOf="@+id/btn_search"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="10dp"
+            />
+
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:id="@+id/btn_search"
+            android:background="@drawable/ic_search_black_24dp"
+            android:textColor="@color/colorWhite"
+            android:textAllCaps="false"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"
+            />
+    </RelativeLayout>
 
     <Button
         android:layout_width="match_parent"
